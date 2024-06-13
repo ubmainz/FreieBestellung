@@ -1,0 +1,21 @@
+{# @author    Matthias Genzmehr #}
+{# @copyright 2024 Universitätsbibliothek Mainz #}
+{# @version   1.0 #}
+
+{% extends 'RAW/base.html' %}
+{% block form %}
+    <fieldset class="">
+        {% if request %}
+            <legend>Bestandsanfrage: {{ request["id"] }}</legend>
+            <h1></h1>
+            <p><b>Bestellter Titel:</b></p>
+            <p>{{ request["instance"]["title"] }}</p>
+            <p>{{ request["item"]["chronology"] }}</p>
+            <p><b>Benutzer:</b></p>
+            <p>{{ request["requester"]["lastName"] }}, {{ request["requester"]["firstName"] }} (Barcode {{ request["requester"]["barcode"] }})</p>
+            <p><b>Ihr Standort für die Abholung:</b></p>
+            <p>{{ request["pickupServicePoint"]["discoveryDisplayName"] }}</p>
+            <p></p>
+        {% endif %}
+    </fieldset>
+{% endblock %}

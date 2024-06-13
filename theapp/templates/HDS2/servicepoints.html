@@ -1,0 +1,101 @@
+{# @author    Matthias Genzmehr #}
+{# @copyright 2024 Universitätsbibliothek Mainz #}
+{# @version   1.0 #}
+
+{% extends 'HDS2/base.html' %}
+{% block form %}
+<form name="searchForm" id="advSearchForm" method="post" action="{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/create" name="" class="form-horizontal" id="">
+    <div class="row">
+        <div class="mainbody col-md-9 col-md-push-3">
+
+            <div class="tab-content">
+
+                <h2 class = "beforeHeadingUpgrade" tabindex = "1">Theke f&uuml;r Abholung</h2>
+
+                <div class="grid">
+                    <div class="adv-group group well row" id="group1">
+                        {% if servicepoints and servicepoints|length() > 0 %}
+                            {% for servicePoint in servicepoints %}
+                                <div class="col-sm-12" style="margin:0.5em auto 0.5em auto;">
+                                    <input type="radio" class="" name="servicePoint" id="{{ servicePoint.id[:8] }}" value="{{ servicePoint.id }}" />
+                                    <label for="{{ servicePoint.id[:8] }}" class="form-label" id="label_{{ servicePoint.id[:8] }}">{{ servicePoint.name }}</label>
+                                </div>
+                            {% else %}
+                                <div class="col-sm-12" style="margin:0.5em auto 0.5em auto;">
+                                    <span class="form-text">Keine Theken verfügbar.</span>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col-sm-12" style="margin:0.5em auto 0.5em auto;">
+                                <span class="form-text">Keine Theken verfügbar.</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <h2 class = "beforeHeadingUpgrade" tabindex = "0">Benutzer</h2>
+                
+                <div class="adv-group group well row" id="group0">
+
+
+                    <div class="col-sm-12 request-form-margin">
+                        <div class="row row-cols-2">
+                            <div class="col-sm-2">
+                                <label class="form-label">Barcode:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <span class="form-text">{% if user %}{{ user['barcode'] }}{% endif %}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 request-form-margin">
+                        <div class="row row-cols-2">
+                            <div class="col-sm-2">
+                                <label class="form-label">Name:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <span class="form-text">{% if user %}{{ user['personal']['lastName'] }}{% endif %}, {% if user %}{{ user['personal']['firstName'] }}{% endif %}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 request-form-margin">
+                        <div class="row row-cols-2">
+                            <div class="col-sm-2">
+                                <label class="form-label">E-Mail:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <span class="form-text">{% if user %}{{ user['personal']['email'] }}{% endif %}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="clearfix"><br/><br/></div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input type="hidden" name="hrid" value="{% if item %}{{ item.hrid }}{% endif %}" />
+                        <input type="hidden" name="id" value="{% if item %}{{ item.id }}{% endif %}" />
+                        <input type="hidden" name="barcode" value="{% if user %}{{ user['barcode'] }}{% endif %}" />
+                        <input type="hidden" name="looknfeel" value="{% if looknfeel %}{{ looknfeel }}{% endif %}" />
+                        <input type="hidden" name="session" value="{% if session %}{{ session }}{% endif %}" />
+                    </div>
+                </div>
+
+                <div class="row"></div>
+                <div class="pull-right">
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-primary pull-right flip" type="submit">
+                            Bestandsanfrage senden<span class="hds-icon-right-circled2"></span></button>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- mainbody -->
+    </div><!-- row -->
+</form>
+{% endblock %}

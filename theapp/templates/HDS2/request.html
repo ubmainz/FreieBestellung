@@ -1,0 +1,68 @@
+{# @author    Matthias Genzmehr #}
+{# @copyright 2024 Universitätsbibliothek Mainz #}
+{# @version   1.0 #}
+
+{% extends 'HDS2/base.html' %}
+{% block form %}
+<div class="row">
+    <div class="mainbody col-md-9 col-md-push-3">
+
+        <div class="tab-content">
+
+            <h2 class = "beforeHeadingUpgrade" tabindex = "0">Ihre Bestandsanfrage (wurde gesendet)</h2>
+
+            <div class="grid">
+            <div class="adv-group group well row" id="group1">
+                {% if request %}
+
+                <div class="col-sm-12 request-form-margin">
+                    <div class="row row-cols-2">
+                        <div class="col-sm-3">
+                            <label class="form-label">Benutzer:</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <span class="form-text">{{ request["requester"]["lastName"] }}, {{ request["requester"]["firstName"] }} (Barcode {{ request["requester"]["barcode"] }})</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 request-form-margin">
+                    <div class="row row-cols-2">
+                        <div class="col-sm-3">
+                            <label class="form-label">Bestellter Titel:</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <span class="form-text">{{ request["instance"]["title"] }}</span><br/><br/>
+                            <span class="form-text">{{ request["item"]["chronology"] }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 request-form-margin">
+                    <div class="row row-cols-2">
+                        <div class="col-sm-3">
+                            <label class="form-label">Ihr Standort für die Abholung:</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <span class="form-text">{{ request["pickupServicePoint"]["discoveryDisplayName"] }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            </div>
+
+            <div class="clearfix">{% if config.HDS2_HOLDS_URL %}<a href="{{ config.HDS2_HOLDS_URL }}">Zum Benutzerkonto</a>{% endif %}</div>
+            <div class="clearfix"><br/><br/></div>
+
+            <div class="row"></div>
+            <div class="pull-right">
+                <!-- div class="btn-group" role="group">
+                    <button class="btn btn-primary pull-right flip" type="submit">OK</button>
+                </div -->
+            </div>
+        </div>
+
+    </div><!-- mainbody -->
+</div><!-- row -->
+{% endblock %}

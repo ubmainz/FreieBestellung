@@ -1,0 +1,15 @@
+/__pycache__
+/.venv
+/*.log
+/*.txt
+/folio/__pycache__
+/folio/entities/__pycache__
+/folio/values/__pycache__
+/theapp/__pycache__
+/theapp/config.py
+/theapp/logic/__pycache__
+/user/__pycache__
+/user/values/__pycache__
+/connection.txt
+/connection.ini
+/todo.txt

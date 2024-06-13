@@ -1,0 +1,110 @@
+/*
+ * @author    Matthias Genzmehr
+ * @copyright 2024 Universitätsbibliothek Mainz
+ * @version   1.0
+ */
+* {
+    font-family:Arial, Helvetica, "Helvetica Neue", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
+}
+body {
+    margin:0px auto;
+}
+p {
+    font-size:11pt;
+}
+a {
+    font-size:12px;
+    color:#000000;
+}
+a:active, a:link, a:visited {
+    text-decoration:none;
+}
+a:hover, a:focus {
+    text-decoration:underline;
+}
+legend {
+    text-align:left;
+    font-size:10pt;
+    font-weight:bold;
+}
+fieldset {
+    margin-top:14px;
+    margin-bottom:14px;
+    padding:20px 10px 20px 10px;
+    border:1px solid #990033;
+    border-radius:5px 5px 5px 5px;
+	-webkit-border-radius:5px 5px 5px 5px;
+	-moz-border-radius:5px 5px 5px 5px;
+}
+input.text {
+    width:99%;
+}
+input.radio {
+    background-color:grey;
+    width:15px;
+    height:15px;
+}
+textarea {
+    width:99%;
+    height:5em;
+}
+label {
+    line-height:1.5em;
+    vertical-align:middle;
+    font-size:11pt;
+    font-style:italic;
+    font-weight:bold;
+}
+strong {
+    font-weight:bold;
+}
+strong.u {
+    text-decoration:underline;
+    font-weight:normal;
+}
+.ueberschrift {
+    font-family:verdana,arial,helvetica,sans-serif;
+    font-size:20px;
+    font-weight:normal;
+}
+.hinweis {
+    font-style:italic;
+    padding:5px 10px 5px 10px;
+    font-size:14px;
+}
+.u {
+    text-decoration:underline;
+}
+.warning {
+    color:red;
+}
+fieldset.input label {
+    display:inline-block;
+    width:220px;
+    margin-bottom:0.6em;
+    vertical-align:top;
+}
+fieldset.input input {
+    width:500px;
+    margin-bottom:0.6em;
+}
+fieldset.theke label {
+    display:inline-block;
+    width:420px;
+}
+.radio-wrapper {
+    display:inline-block;
+    width:460px;
+}
+.output-wrapper {
+    display:inline-block;
+    width:506px;
+    margin-bottom:1em;
+    font-size:14px;
+}
+
+#meldung p {
+    text-align:center;
+    color:red;
+    font-weight:bold;
+}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+{# @author    David Lahm #}
+{# @author    Matthias Genzmehr #}
+{# @copyright 2024 HeBIS #}
+{# @copyright 2024 Universitätsbibliothek Mainz #}
+{# @version   1.0 #}
+<html dir="ltr" lang="de_DE" xml:lang="de_DE">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Leihschein</title>
+
+    <style media="screen">
+        @font-face {
+            font-family: 'vufind-hds';
+            src: url('..{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/static/font/vufind-hds.eot');
+            src: url('..{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/static/font/vufind-hds.eot#iefix')     format('embedded-opentype'),
+                url('..{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/static/font/vufind-hds.woff')           format('woff'),
+                url('..{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/static/font/vufind-hds.ttf')            format('truetype'),
+                url('..{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/static/font/vufind-hds.svg#vufind-hds') format('svg');
+            font-weight: normal;
+            font-style:  normal;
+        }
+    </style>
+
+    <style media="screen">
+        .request-form-margin {
+            margin:0.5em auto 0.5em auto;
+        }
+    </style>
+
+    <!-- RTL styling -->
+    <link href="..{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/static/css/compiled.css" media="all" rel="stylesheet" type="text/css">
+    <link href="..{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/static/css/print.css" media="print" rel="stylesheet" type="text/css">
+    <link href="..{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/static/img/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+    <link href="..{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/static/css/rvk-visual.css" media="screen" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="..{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/static/script/jquery.min.js"></script>
+    <script type="text/javascript" src="..{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/static/script/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="skipLinks tabbingStyle">
+        <div><a href="#main-content">to main content</a></div>
+        <!-- works only @min.md and if sidebar exists: -->
+        <div><a href="#sidebar">to side bar (if existing)</a></div>
+        <div><a href="#footer">to footer with external links</a></div>
+    </div>
+
+    <div class="page">
+        <header role="banner" class="header hidden-print">
+            <div class="nav-bar">
+                <div class="header-top headerTopExpand">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 menu-bar">
+                                
+                                <div class="navbar-header">
+                                    <div role="logo" class="logo navbar-brand hidden-md hidden-lg">
+                                        <!-- ToDO: add Home URL-->
+                                        <a href="">
+                                            <span class="img-responsive"><img src="..{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/static/img/ubm_logo_jgu_small.svg" alt="uni-logo"></span>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#header-collapse">
+                                        <span class="sr-only sr-only-focusable">Toggle navigation</span>
+                                        <span class="hds-icon-menu"></span>
+                                    </button>
+                                </div>
+
+                                {% if localisation and localisation == true %}
+                                <div class="collapse navbar-collapse" id="header-collapse">
+                                    <ul role="navigation" class="nav navbar-nav navbar-right">
+                                        <li class="language dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">DE/EN <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li><!-- ToDO: add language URLs -->
+                                                    <a href="">Language code</a></li>
+                                                <li class="active">
+                                                    <a href="">English</a></li>
+                                                <li>
+                                                    <a href="">Deutsch</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                {% endif %}
+
+                            </div>
+                        </div><!-- end row -->
+                    </div><!-- end container -->
+                </div>
+
+                <noscript>
+                    <div class="no-js-warning">
+                        <div class="warning-box">
+                            <strong>Warning! JavaScript is disabled in your browser. Therefore this website has limited usability.</strong>
+                        </div>
+                    </div>
+                </noscript>
+
+                <div class="sticky-placeholder hidden" style="height: 85px; width: 1920px; padding: 5px 0px; margin: 0px; border-left: 0px none rgb(51, 51, 51); border-right: 0px none rgb(51, 51, 51);">
+                </div>
+
+                <div class="sticky-container" style="background-color: rgb(255, 255, 255); margin-left: 0px; margin-right: 0px; border-left: 0px none; border-right: 0px none; padding-left: 0px; padding-right: 0px;">
+                    <div class="sticky-gap-filler hidden" style="background-color: rgb(255, 255, 255); width: 1920px; margin-left: 0px; border-left: 0px none rgb(51, 51, 51); padding-left: 0px;">
+                    </div>
+                    <div class="header-bottom sticky-element">
+                        <div class="container">
+                            <div class="row">
+                                <div role="logo" class="logo header-left hidden-xs hidden-sm col-md-3 col-lg-3">
+                                    <!-- ToDo: add Home URL -->
+                                    <a href="">
+                                        <span class="img-responsive"><img src="..{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/static/img/ubm_logo_jgu_big.svg" alt="uni-logo"></span>
+                                    </a>
+                                </div>      
+                                <span class="searchbox col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                                    <h1>Freie Bestellung: Elektronischer Leihschein für Zeitschriften</h1><br/>
+                                </span>
+                            </div><!-- end row -->
+                        </div><!-- end container -->
+                    </div><!-- end sticky element -->
+                </div><!-- end sticky container -->
+
+            </div><!-- end navbar -->
+        </header>
+
+        <div id="main-content" role="main" class="main template-dir-search template-name-advanced" tabindex="-1">
+        
+            <div>
+                <p><button class="btn" style="background-color:transparent; height: 0px; margin: 0; padding: 3px 150px" type="button" data-toggle="collapse" data-target="#search-request-log" aria-expanded="false" aria-controls="search-request-log"></button></p>
+
+                <div class="collapse" id="search-request-log">
+                    <div class="card card-body" style="margin: 50px; padding: 20px; border: 1px solid #0a0d10; word-wrap: break-word">
+                        <div></div>
+                        <hr>
+                        <p>
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#search-request-log" aria-expanded="false" aria-controls="search-request-log">Close</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="breadcrumb-area">
+                <div class="container container-breadcrumb">
+                    <ul class="breadcrumb hidden-print">
+                        <li><a href="https://hdsdev.hebis.de/HDS2-1790/ubmz/" aria-label="Back to Home"><span class="hds-icon-home"></span></a></li>
+                        <li class="active">Freie Bestellung</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container container-content">
+                <section class="content">
+                    <div role="search">
+                        {% block form %}{% endblock %}
+                    </div>
+                </section>
+            </div>
+    </div>
+</body>
+</html>

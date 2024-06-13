@@ -1,0 +1,26 @@
+#
+# @author    Matthias Genzmehr
+# @copyright 2024 Universitätsbibliothek Mainz
+# @version   1.0
+#
+
+ENDPOINT = "request"
+
+CONNECTION_INI = "connection.ini"
+
+SHIB_BARCODE_ENV = ""
+# Debug: Barcode ohne Shibboleth als GET Parameter via Environment holen.
+# "barcode=00123456789" muss dann der letzte Parameter in der URL sein:
+# SHIB_BARCODE_ENV = "QUERY_STRING"
+
+LOGFILE_PATH = "/path/to/script/"
+
+SESSION_LOG = LOGFILE_PATH + "session.app.log"
+DEBUG_LOG   = LOGFILE_PATH + "debug.app.log"
+ERROR_LOG   = LOGFILE_PATH + "error.app.log"
+
+HDS2_DOMAIN = "https://domain.hebis.de/"
+
+HDS2_HOME_URL    = HDS2_DOMAIN + "main/ubxyz/"
+HDS2_ACCOUNT_URL = HDS2_HOME_URL + "MyResearch/Home"
+HDS2_HOLDS_URL   = HDS2_HOME_URL + "MyResearch/Holds"

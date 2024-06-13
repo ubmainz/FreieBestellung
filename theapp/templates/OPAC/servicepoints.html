@@ -1,0 +1,66 @@
+{# @author    Matthias Genzmehr #}
+{# @copyright 2024 Universitätsbibliothek Mainz #}
+{# @version   1.0 #}
+
+{% extends 'OPAC/base.html' %}
+{% block form %}
+    <form method="post" action="{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/create" name="erwerbung" class="" id="">
+        <table width="100%" border="0" cellpadding="3" cellspacing="0" span class="top1">
+            <tr>
+                <td width="114px" bgcolor="#cccccc" valign="top" align="center">&nbsp;<br/><a href="javascript:window.close();">Fenster schlie&szlig;en</a><br/>________________</td>
+                <td>&nbsp;</td>
+                <td valign="top">
+
+                    {% if error %}
+                        <fieldset class="input" id="meldung">
+                            <p>Bitte wählen Sie eine Theke für die Abholung aus.</p>
+                        </fieldset>
+                    {% endif %}
+
+                    <fieldset class="user">
+                        <legend>Benutzer: </legend>
+                        {#<legend>Benutzer: {% if user %}{{ user['id'] }}{% endif %}</legend><!-- uncomment if you want to see the UUID of the user -->#}
+                        {#<label>Anmeldename: </label><div class="output-wrapper">{% if user %}{{ user['username'] }}{% endif %}</div><br/>#}
+                        <label>Barcode: </label><div class="output-wrapper">{% if user %}{{ user['barcode'] }}{% endif %}</div><br/>
+                        <label>Name: </label><div class="output-wrapper">{% if user %}{{ user['personal']['lastName'] }}{% endif %}, {% if user %}{{ user['personal']['firstName'] }}{% endif %}</div><br/>
+                        <label>E-Mail: </label><div class="output-wrapper">{% if user %}{{ user['personal']['email'] }}{% endif %}</div><br/>
+                    </fieldset>
+
+                    <fieldset class="theke">
+                        <legend>Theke f&uuml;r Abholung: </legend>
+                        {% if servicepoints and servicepoints|length() > 0 %}
+                            {% for servicePoint in servicepoints %}
+                                <div class="radio-wrapper">
+                                <input type="radio" name="servicePoint" id="{{ servicePoint.id[:8] }}" value="{{ servicePoint.id }}" />
+                                <label for="{{ servicePoint.id[:8] }}" id="label_{{ servicePoint.id[:8] }}">{{ servicePoint.name }}</label>
+                                </div><br/>
+                            {% else %}
+                                <div class="radio-wrapper">
+                                    Keine Theken verfügbar.
+                                </div><br/>
+                            {% endfor %}
+                        {% else %}
+                            <div class="radio-wrapper">
+                                Keine Theken verfügbar.
+                            </div><br/>
+                        {% endif %}
+                    </fieldset>
+
+                    <fieldset>
+                        <p style="text-align:center;">
+                            <input type="hidden" name="hrid" value="{% if item %}{{ item.hrid }}{% endif %}" />
+                            <input type="hidden" name="id" value="{% if item %}{{ item.id }}{% endif %}" />
+                            <input type="hidden" name="barcode" value="{% if user %}{{ user['barcode'] }}{% endif %}" />
+                            <input type="hidden" name="looknfeel" value="{% if looknfeel %}{{ looknfeel }}{% endif %}" />
+                            <input type="hidden" name="session" value="{% if session %}{{ session }}{% endif %}" />
+                            <input type="submit" class="" id="submit" value="Bestandsanfrage senden" />
+                        </p>
+                        <p style="text-align:center; font-size:11px;">Mit * gekennzeichnete Felder m&uuml;ssen ausgef&uuml;llt werden.</p>
+                    </fieldset>
+
+                    <p class="hinweis"><strong style="font-style:normal;">Bitte beachten Sie:</strong> Ihre Bestellung wird erst in Ihrem Nutzerkonto angezeigt, wenn sie <strong class="u">im Abholregal</strong> bereit steht. Bestellungen in die Bereichsbibliothek Universitätsmedizin oder die Bereichsbibliothek Mathematik, Informatik, Naturwissenschaften (BB MIN) können dort erst <strong class="u">einen Tag später</strong> abgeholt werden.</p>
+                </td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}

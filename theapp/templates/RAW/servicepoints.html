@@ -1,0 +1,58 @@
+{# @author    Matthias Genzmehr #}
+{# @copyright 2024 Universitätsbibliothek Mainz #}
+{# @version   1.0 #}
+
+{% extends 'RAW/base.html' %}
+{% block form %}
+    <form method="post" action="{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/create" name="" class="" id="">
+
+        {% if error %}
+        <fieldset class="" id="">
+            <p style="color:red">Bitte wählen Sie eine Theke für die Abholung aus.</p>
+        </fieldset>
+        {% endif %}
+
+        <fieldset class="">
+            <legend>Benutzer: </legend>
+            {#<legend>Benutzer: {% if user %}{{ user['id'] }}{% endif %}</legend><!-- uncomment if you want to see the UUID of the user -->#}
+            {#<label>Anmeldename: </label><div class="">{% if user %}{{ user['username'] }}{% endif %}</div><br/>#}
+            <label>Barcode: </label><div class="">{% if user %}{{ user['barcode'] }}{% endif %}</div><br/>
+            <label>Name: </label><div class="">{% if user %}{{ user['personal']['lastName'] }}{% endif %}, {% if user %}{{ user['personal']['firstName'] }}{% endif %}</div><br/>
+            <label>E-Mail: </label><div class="">{% if user %}{{ user['personal']['email'] }}{% endif %}</div><br/>
+        </fieldset>
+
+        <fieldset class="">
+            <legend>Theke f&uuml;r Abholung: </legend>
+            {% if servicepoints and servicepoints|length() > 0 %}
+                {% for servicePoint in servicepoints %}
+                    <div class="">
+                    <input type="radio" name="servicePoint" id="{{ servicePoint.id[:8] }}" value="{{ servicePoint.id }}" />
+                    <label for="{{ servicePoint.id[:8] }}" id="label_{{ servicePoint.id[:8] }}">{{ servicePoint.name }}</label>
+                    </div><br/>
+                {% else %}
+                    <div class="">
+                        Keine Theken verfügbar.
+                    </div><br/>
+                {% endfor %}
+            {% else %}
+                <div class="">
+                    Keine Theken verfügbar.
+                </div><br/>
+            {% endif %}
+        </fieldset>
+
+        <fieldset class="">
+            <p style="text-align:center;">
+                <input type="hidden" name="hrid" value="{% if item %}{{ item.hrid }}{% endif %}" />
+                <input type="hidden" name="id" value="{% if item %}{{ item.id }}{% endif %}" />
+                <input type="hidden" name="barcode" value="{% if user %}{{ user['barcode'] }}{% endif %}" />
+                <input type="hidden" name="looknfeel" value="{% if looknfeel %}{{ looknfeel }}{% endif %}" />
+                <input type="hidden" name="session" value="{% if session %}{{ session }}{% endif %}" />
+                <input type="submit" class="" id="submit" value="Bestandsanfrage senden" />
+            </p>
+            <p style="text-align:center; font-size:11px;">Mit * gekennzeichnete Felder m&uuml;ssen ausgef&uuml;llt werden.</p>
+        </fieldset>
+
+        <p><strong>Bitte beachten Sie:</strong> Ihre Bestellung wird erst in Ihrem Nutzerkonto angezeigt, wenn sie <strong>im Abholregal</strong> bereit steht. Bestellungen in die Bereichsbibliothek Universitätsmedizin oder die Bereichsbibliothek Mathematik, Informatik, Naturwissenschaften (BB MIN) können dort erst <strong>einen Tag später</strong> abgeholt werden.</p>
+    </form>
+{% endblock %}

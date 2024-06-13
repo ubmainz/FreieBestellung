@@ -1,0 +1,244 @@
+{# @author    Matthias Genzmehr #}
+{# @copyright 2024 Universitätsbibliothek Mainz #}
+{# @version   1.0 #}
+
+{% extends 'HDS2/base.html' %}
+{% block form %}
+<form name="searchForm" id="advSearchForm" method="post" action="/{% if config.ENDPOINT %}{{ config.ENDPOINT }}{% endif %}" class="form-horizontal">
+    <div class="row">
+        <div class="mainbody col-md-9 col-md-push-3">
+
+            <div class="tab-content">
+
+                <h2 class = "beforeHeadingUpgrade" tabindex = "1">Zeitschrift</h2>
+
+                <div class="grid">
+                    <div class="adv-group group well row" id="group1">
+    
+                        <div class="col-sm-12 request-form-margin">
+                            <div class="row row-cols-2">
+                                <div class="col-sm-2">
+                                    <label class="form-label">Hallo Titel:</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <span class="form-text">{% if item %}{{ item['title'] }}{% endif %}</span>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-sm-12 request-form-margin">
+                            <div class="row row-cols-2">
+                                <div class="col-sm-2">
+                                    <label class="form-label">Signatur:</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <span class="form-text">{% if item %}{{ item['callNumber'] }}{% endif %}</span>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-sm-12 request-form-margin">
+                            <div class="row row-cols-2">
+                                <div class="col-sm-2">
+                                    <label class="form-label">Materialtyp:</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <span class="form-text">{% if item %}{{ item['materialType']['name'] }}{% endif %}</span>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-sm-12 request-form-margin">
+                            <div class="row row-cols-2">
+                                <div class="col-sm-2">
+                                    <label class="form-label">Ausleihcode:</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <span class="form-text">{% if item %}{{ item['permanentLoanType']['name'] }}{% endif %}</span>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-sm-12 request-form-margin">
+                            <div class="row row-cols-2">
+                                <div class="col-sm-2">
+                                    <label class="form-label">Bestand:</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <span class="form-text">{% if item %}{{ item['yearCaption'] }}{% endif %}</span>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-sm-12 request-form-margin">
+                            <div class="row row-cols-2">
+                                {% if errors and errors['jahrgang'] %}
+                                    <div class="col-sm-2">
+                                        <label class="control-label" for="jahrgangID" style="color:red">Jahrgang <sup>*</sup>:</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input name="jahrgang" id="jahrgangID" class="form-control" type="text" maxlength="4" pattern="[1-2]{1}[0-9]{3}" placeholder="z.B.: 2001" aria-label="Search Terms" value="{{ errors['jahrgang'] }}" autofocus required />
+                                    </div>
+                                {% elif values and values['jahrgang'] %}
+                                    <div class="col-sm-2">
+                                        <label class="control-label" for="jahrgangID">Jahrgang <sup>*</sup>:</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input name="jahrgang" id="jahrgangID" class="form-control" type="text" maxlength="4" pattern="[1-2]{1}[0-9]{3}" placeholder="z.B.: 2001" aria-label="Search Terms" value="{{ values['jahrgang'] }}" autofocus required />
+                                    </div>
+                                {% else %}
+                                    <div class="col-sm-2">
+                                        <label class="control-label" for="jahrgangID">Jahrgang <sup>*</sup>:</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input name="jahrgang" id="jahrgangID" class="form-control" type="text" maxlength="4" pattern="[1-2]{1}[0-9]{3}" placeholder="z.B.: 2001" aria-label="Search Terms" value="" autofocus required />
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+    
+                        <div class="col-sm-12 request-form-margin">
+                            <div class="row row-cols-2">
+                                {% if errors and errors['band'] %}
+                                    <div class="col-sm-2">
+                                        <label class="control-label" for="bandID" style="color:red">Band:</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input name="band" id="bandID" class="form-control" type="text" maxlength="40" placeholder="z.B.: 3" aria-label="Search Terms" value="{{ errors['band'] }}" />
+                                    </div>
+                                {% elif values and values['band'] %}
+                                    <div class="col-sm-2">
+                                        <label class="control-label" for="bandID">Band:</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input name="band" id="bandID" class="form-control" type="text" maxlength="40" placeholder="z.B.: 3" aria-label="Search Terms" value="{{ values['band'] }}" />
+                                    </div>
+                                {% else %}
+                                    <div class="col-sm-2">
+                                        <label class="control-label" for="bandID">Band:</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input name="band" id="bandID" class="form-control" type="text" maxlength="40" placeholder="z.B.: 3" aria-label="Search Terms" value="" />
+                                    </div>
+                                {% endif %}
+                            </div>                        
+                        </div>
+    
+                        <div class="col-sm-12 request-form-margin">
+                            <div class="row row-cols-2">
+                                {% if errors and errors['seitenzahl'] %}
+                                    <div class="col-sm-2">
+                                        <label class="control-label" for="seitenzahlID" style="color:red">Seitenzahl:</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input name="seitenzahl" id="seitenzahlID" class="form-control" type="text" maxlength="40" placeholder="z.B.: S. 11-19 / 4.3.2001" aria-label="Search Terms" value="{{ errors['seitenzahl'] }}" />
+                                    </div>
+                                {% elif values and values['seitenzahl'] %}
+                                    <div class="col-sm-2">
+                                        <label class="control-label" for="seitenzahlID">Seitenzahl:</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input name="seitenzahl" id="seitenzahlID" class="form-control" type="text" maxlength="40" placeholder="z.B.: S. 11-19 / 4.3.2001" aria-label="Search Terms" value="{{ values['seitenzahl'] }}" />
+                                    </div>
+                                {% else %}
+                                    <div class="col-sm-2">
+                                        <label class="control-label" for="seitenzahlID">Seitenzahl:</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input name="seitenzahl" id="seitenzahlID" class="form-control" type="text" maxlength="40" placeholder="z.B.: S. 11-19 / 4.3.2001" aria-label="Search Terms" value="" />
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+
+                <h2 class = "beforeHeadingUpgrade" tabindex = "0">Benutzer</h2>
+                
+                <div class="adv-group group well row" id="group0">
+
+
+                    <div class="col-sm-12 request-form-margin">
+                        <div class="row row-cols-2">
+                            <div class="col-sm-2">
+                                <label class="form-label">Barcode:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <span class="form-text">{% if user %}{{ user['barcode'] }}{% endif %}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 request-form-margin">
+                        <div class="row row-cols-2">
+                            <div class="col-sm-2">
+                                <label class="form-label">Name:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <span class="form-text">{% if user %}{{ user['personal']['lastName'] }}{% endif %}, {% if user %}{{ user['personal']['firstName'] }}{% endif %}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 request-form-margin">
+                        <div class="row row-cols-2">
+                            <div class="col-sm-2">
+                                <label class="form-label">E-Mail:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <span class="form-text">{% if user %}{{ user['personal']['email'] }}{% endif %}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--
+                {% if myenv %}
+                <div class="adv-group group well row" id="group2">
+
+                    <div class="col-sm-12 request-form-margin">
+                        <div class="row row-cols-2">
+                            <div class="col-sm-2">
+                                <label class="form-label">Environ:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                    {% for key  in myenv %}
+                                    <span class="form-text">{{ key }} : {{ myenv[key] }}</span><br/>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                {% endif %}
+                -->
+
+                <div class="clearfix"></div>
+                <div class="clearfix"><br/><br/></div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input type="hidden" name="id" value="{% if item %}{{ item.id }}{% endif %}" />
+                        <input type="hidden" name="barcode" value="{% if user %}{{ user['barcode'] }}{% endif %}" />
+                        <input type="hidden" name="looknfeel" value="{% if looknfeel %}{{ looknfeel }}{% endif %}" />
+                        <input type="hidden" name="session" value="{% if session %}{{ session }}{% endif %}" />
+                    </div>
+                </div>
+
+                <div class="row"></div>
+                <div class="pull-right">
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-primary pull-right flip" type="submit">
+                            Weiter<span class="hds-icon-right-circled2"></span></button>
+                        <button class="btn btn-default pull-right clear-btn" type="reset">
+                            Formular zurücksetzen<span class="hds-icon-recycle"></span></button>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- mainbody -->
+    </div><!-- row -->
+</form>
+{% endblock %}

@@ -1,0 +1,71 @@
+{# @author    Matthias Genzmehr #}
+{# @copyright 2024 Universitätsbibliothek Mainz #}
+{# @version   1.0 #}
+
+{% extends 'RAW/base.html' %}
+{% block form %}
+    <form method="post" action="/{% if config.ENDPOINT %}{{ config.ENDPOINT }}{% endif %}" name="" class="" id="">
+
+        {% if errors and errors|length() > 0 %}
+            <fieldset class="" id="">
+                <p style="color:red">Die Eingaben sind fehlerhaft. Bitte korrigieren Sie die Eingaben.</p>
+            </fieldset>
+        {% endif %}
+
+        <fieldset class="">
+            <legend>Benutzer: </legend>
+            {#<legend>Benutzer: {% if user %}{{ user['id'] }}{% endif %}</legend><!-- uncomment if you want to see the UUID of the user --> #}
+            {#<label>Anmeldename: </label><div class="">{% if user %}{{ user['username'] }}{% endif %}</div><br/>#}
+            <label>Barcode: </label><div class="">{% if user %}{{ user['barcode'] }}{% endif %}</div><br/>
+            <label>Name: </label><div class="">{% if user %}{{ user['personal']['lastName'] }}{% endif %}, {% if user %}{{ user['personal']['firstName'] }}{% endif %}</div><br/>
+            <label>E-Mail: </label><div class="">{% if user %}{{ user['personal']['email'] }}{% endif %}</div><br/>
+        </fieldset>
+
+        <fieldset class="">
+            <legend>Zeitschrift: </legend>
+            {#<legend>Zeitschrift: {% if item %}{{ item['id'] }}{% endif %}</legend><!-- uncomment if you want to see the UUID of the journal -->#}
+            <label>Titel: </label><div class="">{% if item %}{{ item['title'] }}{% endif %}</div><br/>
+            <label>Signatur: </label><div class="">{% if item %}{{ item['callNumber'] }}{% endif %}</div><br/>
+            <label>Materialtyp: </label><div class="">{% if item %}{{ item['materialType']['name'] }}{% endif %}</div><br/>
+            <label>Ausleihcode: </label><div class="">{% if item %}{{ item['permanentLoanType']['name'] }}{% endif %}</div><br/>
+            <label>Bestand: </label><div class="">{% if item %}{{ item['yearCaption'] }}{% endif %}</div><br/>
+
+            {% if errors and errors['jahrgang'] %}
+                <label for="jahrgangID" id="" class="" style="color:red">Jahrgang <sup>*</sup>: </label><input type="text" name="jahrgang" id="" maxlength="4" pattern="[1-2]{1}[0-9]{3}" placeholder="z.B.: 2001" value="{{ errors['jahrgang'] }}" autofocus required/><br/>
+            {% elif values and values['jahrgang'] %}
+                <label for="jahrgangID" id="">Jahrgang <sup>*</sup>: </label><input type="text" name="jahrgang" id="" maxlength="4" pattern="[1-2]{1}[0-9]{3}" placeholder="z.B.: 2001" value="{{ values['jahrgang'] }}" autofocus required/><br/>
+            {% else %}
+                <label for="jahrgangID" id="">Jahrgang <sup>*</sup>: </label><input type="text" name="jahrgang" id="" maxlength="4" pattern="[1-2]{1}[0-9]{3}" placeholder="z.B.: 2001" value="" autofocus required/><br/>
+            {% endif %}
+
+            {% if errors and errors['band'] %}
+                <label for="bandID" id="" class="" style="color:red">Band: </label><input type="text" name="band" id="" maxlength="40" placeholder="z.B.: 3" value="{{ errors['band'] }}" /><br/>
+            {% elif values and values['band'] %}
+                <label for="bandID" id="">Band: </label><input type="text" name="band" id="" maxlength="40" placeholder="z.B.: 3" value="{{ values['band'] }}" /><br/>
+            {% else %}
+                <label for="bandID" id="">Band: </label><input type="text" name="band" id="" maxlength="40" placeholder="z.B.: 3" value="" /><br/>
+            {% endif %}
+
+            {% if errors and errors['seitenzahl'] %}
+                <label for="seitenzahlID" id="" class="" style="color:red">Seitenzahl / Datum: </label><input type="text" name="seitenzahl" id="" maxlength="40" placeholder="z.B.: S. 11-19 / 4.3.2001" value="{{ errors['seitenzahl'] }}" /><br/>
+            {% elif values and values['seitenzahl'] %}
+                <label for="seitenzahlID" id="">Seitenzahl / Datum: </label><input type="text" name="seitenzahl" id="" maxlength="40" placeholder="z.B.: S. 11-19 / 4.3.2001" value="{{ values['seitenzahl'] }}" /><br/>
+            {% else %}
+                <label for="seitenzahlID" id="">Seitenzahl / Datum: </label><input type="text" name="seitenzahl" id="" maxlength="40" placeholder="z.B.: S. 11-19 / 4.3.2001" value="" /><br/>
+            {% endif %}
+        </fieldset>
+
+        <fieldset class="">
+            <p style="text-align:center;">
+                <input type="hidden" name="id" value="{% if item %}{{ item.id }}{% endif %}" />
+                <input type="hidden" name="barcode" value="{% if user %}{{ user['barcode'] }}{% endif %}" />
+                <input type="hidden" name="looknfeel" value="{% if looknfeel %}{{ looknfeel }}{% endif %}" />
+                <input type="hidden" name="session" value="{% if session %}{{ session }}{% endif %}" />
+                <input type="button" class="" id="reset" onClick="resetAll();" value="Formular zur&uuml;cksetzen" />
+                <input type="submit" class="" id="submit" value="weiter >>" />
+            </p>
+            <p style="text-align:center; font-size:11px;">Mit * gekennzeichnete Felder m&uuml;ssen ausgef&uuml;llt werden.</p>
+        </fieldset>
+        <p><strong>Bitte beachten Sie:</strong> Ihre Bestellung wird erst in Ihrem Nutzerkonto angezeigt, wenn sie <strong>im Abholregal</strong> bereit steht. Bestellungen in die Bereichsbibliothek Universitätsmedizin oder die Bereichsbibliothek Mathematik, Informatik, Naturwissenschaften (BB MIN) können dort erst <strong>einen Tag später</strong> abgeholt werden.</p>
+    </form>
+{% endblock %}

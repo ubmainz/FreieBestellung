@@ -1,0 +1,162 @@
+{# @author    Matthias Genzmehr #}
+{# @copyright 2024 Universitätsbibliothek Mainz #}
+{# @version   1.0 #}
+
+{% extends 'HDS2/base.html' %}
+{% block form %}
+<div class="row">
+    <div class="mainbody col-md-9 col-md-push-3">
+
+        <div class="tab-content">
+
+            {% if exception == "HRID" %}
+                <h2 class = "beforeHeadingUpgrade" tabindex = "0">HRID Error</h2>
+                <div class="grid">
+                    <div class="adv-group group well row" id="group1">
+                        <div class="col-sm-12 request-form-margin">
+                            {% if error %}
+                                <span class="form-text">Die Datensatz ID hat kein gültiges Format: {{ error["hrid"] }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% elif exception == "Barcode" %}
+                <h2 class = "beforeHeadingUpgrade" tabindex = "0">Barcode Error</h2>
+                <div class="grid">
+                    <div class="adv-group group well row" id="group1">
+                        <div class="col-sm-12 request-form-margin">
+                            {% if error %}
+                                <span class="form-text">Der Barcode hat kein gültiges Format: {{ error["barcode"] }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% elif exception == "UUID" %}
+                <h2 class = "beforeHeadingUpgrade" tabindex = "0">Session Error</h2>
+                <div class="grid">
+                    <div class="adv-group group well row" id="group1">
+                        <div class="col-sm-12 request-form-margin">
+                            {% if error %}
+                                <span class="form-text">Es ist ein technisches Problem aufgetreten!</span><br/>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% elif exception == "NotFound" %}
+                <h2 class = "beforeHeadingUpgrade" tabindex = "0">NotFound Error</h2>
+                <div class="grid">
+                    <div class="adv-group group well row" id="group1">
+                        <div class="col-sm-12 request-form-margin">
+                            {% if error %}
+                                <span class="form-text">Das Bibliothekssystem enthält das gesuchte Objekt nicht:</span><br/><br/>
+                                <span>{{ error["type"] }}: {{ error["id"] }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% elif exception == "ServicePoint" %}
+                <h2 class = "beforeHeadingUpgrade" tabindex = "0">ServicePoint Error</h2>
+                <div class="grid">
+                    <div class="adv-group group well row" id="group1">
+                        <div class="col-sm-12 request-form-margin">
+                            {% if error %}
+                                <span class="form-text">Bestellung nicht möglich. Es wurde keine Abholtheke gefunden.</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% elif exception == "Item" or exception == "Request" %}
+                <h2 class = "beforeHeadingUpgrade" tabindex = "0">Ungültige Daten</h2>
+                <div class="grid">
+                    <div class="adv-group group well row" id="group1">
+                        <div class="col-sm-12 request-form-margin">
+                            {% if error %}
+                                <span class="form-text">Das System versucht ungültige Daten zu senden.</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% elif exception == "FOLIOError" %}
+                <h2 class = "beforeHeadingUpgrade" tabindex = "0">Meldung</h2>
+                <div class="grid">
+                    <div class="adv-group group well row" id="group1">
+                        <div class="col-sm-12 request-form-margin">
+                            {% if error and error["code"] == "ITEM_ALREADY_REQUESTED" %}
+                                <span class="form-text">Sie können die Bestandsanfrage nur einmal stellen.</span>
+                            {% elif error and error["code"] == "NO_CODE" and error["message"] %}
+                                <span class="form-text">Error: {{ error["message"] }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% elif exception == "HTTP" %}
+                <h2 class = "beforeHeadingUpgrade" tabindex = "0">HTTP Error</h2>
+                <div class="grid">
+                    <div class="adv-group group well row" id="group1">
+                        <div class="col-sm-12 request-form-margin">
+                            {% if error["status_code"] == 400 %}
+                                <span class="form-text">HTTP 400 (Bad Request) - Das Bibliothekssystem kann die Anfrage nicht verarbeiten. :/ </span>
+                            {% elif error["status_code"] == 401 %}
+                                <span class="form-text">HTTP 401 (Unauthorized) - Zugriff auf das Bibliothekssystem nicht möglich. :/ </span>
+                            {% elif error["status_code"] == 403 %}
+                                <span class="form-text">HTTP 403 (Forbidden) - Zugriff auf das Bibliothekssystem nicht möglich. :/ </span>
+                            {% elif error["status_code"] == 404 %}
+                                <span class="form-text">HTTP 404 (Not Found) - Kein Ergebnis für die Anfrage ans Bibliothekssystem. :/</span>
+                            {% elif error["status_code"] == 500 %}
+                                <span class="form-text">HTTP 500 (Internal Server Error) - Fehler im Bibliothekssystem. :/</span>
+                            {% else %}
+                                <span class="form-text"3>HTTP Error: Es gibt ein Problem mit der Verbindung zum Bibliothekssystem. :/</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% elif exception == "Connection" %}
+                <h2 class = "beforeHeadingUpgrade" tabindex = "0">Verbindungsfehler</h2>
+                <div class="grid">
+                    <div class="adv-group group well row" id="group1">
+                        <div class="col-sm-12 request-form-margin">
+                            {% if error %}
+                                <span class="form-text">Anmeldung am Bibliothekssystem fehlgeschlagen.</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% elif exception == "Base" %}
+                <h2 class = "beforeHeadingUpgrade" tabindex = "0">Fehler</h2>
+                <div class="grid">
+                    <div class="adv-group group well row" id="group1">
+                        <div class="col-sm-12 request-form-margin">
+                            {% if error %}
+                                <span class="form-text">Es ist ein Fehler aufgetreten.</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <h2 class = "beforeHeadingUpgrade" tabindex = "0">Else</h2>
+                <div class="grid">
+                    <div class="adv-group group well row" id="group1">
+                        <div class="col-sm-12 request-form-margin">
+                            {% if error %}
+                                <span class="form-text">Hier wohnt Else.</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="grid">
+                <div class="adv-group group well row" id="group1">
+                    <div class="col-sm-12 request-form-margin">
+                        <span class="form-text">Bitte wenden Sie sich an die Zentralbibliothek: info@ub.uni-mainz.de</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="clearfix"><br/><br/></div>
+            <div class="row"></div>
+        </div>
+
+    </div><!-- mainbody -->
+</div><!-- row -->
+{% endblock %}
