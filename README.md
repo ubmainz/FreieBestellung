@@ -20,20 +20,22 @@ user@host:~/projects/FreieBestellung# python -m venv .venv
 
 ... and activate the virtual environment:
 ```bash
-user@host:~/projects/request-form# . .venv/bin/activate
+user@host:~/projects/FreieBestellung# . .venv/bin/activate
 ```
 
 Now install the libraries "Flask" and "requests" with the packet manager pip
 ```bash
-(.venv) user@host:~/projects/request-form# pip install Flask
+(.venv) user@host:~/projects/FreieBestellung# pip install Flask
 
-(.venv )user@host:~/projects/request-form# pip install requests
+(.venv )user@host:~/projects/FreieBestellung# pip install requests
 ```
 
 In a development setting the app can now been run with
 ```bash
-(.venv) user@host:~/projects/request-form# flask run [--debug]
+(.venv) user@host:~/projects/FreieBestellung# flask run [--debug]
 ```
+
+The Flask framework will start by default on Port 5000.
 
 ## Configuration
 
