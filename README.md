@@ -35,7 +35,13 @@ In a development setting the app can now been run with
 (.venv) user@host:~/projects/FreieBestellung# flask run [--debug]
 ```
 
-The Flask framework will start by default on Port 5000.
+The Flask web server will start by default on Port 5000 and can be stopped with 'Ctrl+C'. afterwards the virtual environment can be stopped with:
+
+```bash
+(.venv) user@host:~/projects/FreieBestellung# deactivate
+
+user@host:~/projects/FreieBestellung#
+```
 
 ## Configuration
 
@@ -49,9 +55,7 @@ inventory-storage.items.item.post
 
 It may be necessary to turn on the hidden permissions in FOLIO first to set this permission for the script user.
 
-Now you can configure your connection in connection.ini.
-
-e.g.:
+Now you can configure your connection in connection.ini. e.g.:
 
 ```ini
 okapi_url=https://folio.your-domain.de/okapi/
