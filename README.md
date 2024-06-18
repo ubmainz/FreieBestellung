@@ -62,7 +62,7 @@ okapi_url=https://folio.your-domain.de/okapi/
 url_auth_login=https://folio.your-domain.de/okapi/authn/login
 tenant_id=ubxyz
 username=scriptuser
-password=topsecret
+password=topsecret123
 ```
 
 ### Application
