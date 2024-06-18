@@ -211,6 +211,22 @@ class ServicePointIDException(Exception):
     @property
     def data(self):
         return {"servicePointId":escape(self.args[0])}
+    
+#
+# ExternalSystemID
+#
+
+class ExternalSystemIDException(Exception):
+
+    def __init__(self, externalSystemId):
+        super().__init__(externalSystemId)
+
+    def __str__(self):
+        return "Die externe System ID ist nicht gültig: " + str(self.args[0])
+
+    @property
+    def data(self):
+        return {"externalSystemId":self.args[0]}
 
 #
 # Barcode

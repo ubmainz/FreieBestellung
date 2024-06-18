@@ -18,6 +18,7 @@ from folio.entities.item import Item
 from folio.entities.allowedservicepoints import AllowedServicePoints
 from folio.entities.request import Request
 
+from folio.values.externalsystemid import ExternalSystemID, ExternalSystemIDValue
 from folio.values.barcode import Barcode, BarcodeValue
 from folio.values.hrid import HRID, HRIDValue
 from folio.values.uuid import UUIDValue, ItemIDValue, ServicePointIDValue 
@@ -29,7 +30,7 @@ from user.values.seitenzahldatum import SeitenzahlDatum, SeitenzahlDatumValue
 from folio.exceptions import ConnectionException, HTTPException, HRIDException, BarcodeException, UUIDException, \
                              ItemException, RequestException, ServicePointException,  \
                              FOLIOErrorException, InputException, NotFoundException, \
-                             InstanceIDException, ItemIDException, ServicePointIDException
+                             InstanceIDException, ItemIDException, ServicePointIDException, ExternalSystemIDException
 
 requestform = Blueprint('requestform', __name__)
 
@@ -38,59 +39,69 @@ def create_form():
 
     look_n_feel = LookNFeel(request.args.get('looknfeel'))
 
-    barcode_env    = current_app.config["SHIB_BARCODE_ENV"]
-    connection_ini = current_app.config["CONNECTION_INI"]
-    logger         = current_app.logger
+    ex_sys_id_env   = current_app.config["EXTERNAL_SYSTEM_ID_ENV"]
+    ex_sys_id_regex = current_app.config["EXTERNAL_SYSTEM_ID_REGEX"]
+    connection_ini  = current_app.config["CONNECTION_INI"]
+    logger          = current_app.logger
 
     try:
-        logEntry = uuid.uuid4(); logger.debug("New Session: %s" % (logEntry))
+        log_entry = uuid.uuid4(); logger.debug("New Session: %s" % (log_entry))
 
         connection = Connection(connection_ini, logger)
 
         if connection.is_established():
 
             try:
-                # Barcode über GET Parameter 'barcode' holen.
-                # user = connection.getUserByBarcode(BarcodeValue()(request.args.get('barcode', '')))
+                if current_app.debug:
+                    # Debugging ohne IDM. User über GET Parameter 'externalSystemId' holen.
+                    exSysId = ExternalSystemIDValue(ex_sys_id_regex)(request.args.get('exSysId', ''))
+                else:
+                    exSysId = ExternalSystemIDValue(ex_sys_id_regex)(request.environ.get(ex_sys_id_env))
 
-                # Barcode via Umgebungsvariable holen (Shib Login)
-                user = connection.getUserByBarcode(BarcodeValue()(request.environ.get(barcode_env)[-12:]))
+                user = connection.getUserByExternalSystemId(exSysId)
+
+                # Check if user has valid Barcode, if not we can't go on...
+                barcode = BarcodeValue()(user.barcode)
 
                 item = connection.getItemByHRID(HRIDValue()(request.args.get('hrid', '')))
 
-                logger.info("Session: %s Step 1: UserID: %s Intellectual Item: %s" % (logEntry, user.id, item.id))
+                logger.info("Session: %s Step 1: UserID: %s Intellectual Item: %s" % (log_entry, user.id, item.id))
 
-                return render_template(look_n_feel('item.html'), looknfeel=look_n_feel.look, session=logEntry, user=user.data, item=item.data, localisation=True)
+                return render_template(look_n_feel('item.html'), looknfeel=look_n_feel.look, session=log_entry, user=user.data, item=item.data, localisation=True)
+
+            except ExternalSystemIDException as error:
+                logger.error("Session: %s ExternalSystemIDException: %s" % (log_entry, str(error)))
+                return render_template(look_n_feel('errors.html'), exception="ExternalSystemId", error=error.data, localisation=True)
 
             except BarcodeException as error:
-                logger.error("Session: %s BarcodeException: %s" % (logEntry, str(error)))
+                logger.error("Session: %s BarcodeException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="Barcode", error=error.data, localisation=True)
 
             except HRIDException as error:
-                logger.error("Session: %s HRIDException: %s" % (logEntry, str(error)))
+                logger.error("Session: %s HRIDException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="HRID", error=error.data, localisation=True)
 
             except NotFoundException as error:
-                logger.error("Session: %s NotFoundException: %s" % (logEntry, str(error)))
+                logger.error("Session: %s NotFoundException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="NotFound", error=error.data, localisation=True)
 
             except HTTPException as error:
-                logger.error("Session: %s HTTPException: %s" % (logEntry, str(error)))
+                logger.error("Session: %s HTTPException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="HTTP", error=error.data, localisation=True)
 
             except BaseException as error:
-                logger.error("Session: %s Something unexpected went wrong! %s" % (logEntry, str(error)))
+                logger.error("Session: %s Something unexpected went wrong! %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="Base", localisation=True)
 
             finally:
                 pass
 
     except ConnectionException as error:
-        logger.error("Session: %s ConnectionException: %s" % (logEntry, str(error)))
+        logger.error("Session: %s ConnectionException: %s" % (log_entry, str(error)))
         return render_template(look_n_feel('errors.html'), exception="Connection", localisation=True)
 
     except BaseException as error:
-        logger.error("Session: %s Something unexpected went wrong! %s" % (logEntry, str(error)))
+        logger.error("Session: %s Something unexpected went wrong! %s" % (log_entry, str(error)))
         return render_template(look_n_feel('errors.html'), exception="Base", localisation=True)
 
     finally:
@@ -109,7 +120,7 @@ def create_item():
     logger         = current_app.logger
 
     try:
-        logEntry = UUIDValue()(request.form.get('session'))
+        log_entry = UUIDValue()(request.form.get('session'))
 
         connection = Connection(connection_ini, logger)
 
@@ -136,15 +147,15 @@ def create_item():
                    
                     servicePoints = connection.getAllowedServicePoints(user.id, newItem.id)
 
-                    logger.info("Session: %s Step 2: UserID: %s New Item: %s" % (logEntry, user.id, newItem.id))
+                    logger.info("Session: %s Step 2: UserID: %s New Item: %s" % (log_entry, user.id, newItem.id))
 
-                    return render_template(look_n_feel('servicepoints.html'), looknfeel=look_n_feel.look, session=logEntry, user=user.data, item=newItem.data, servicepoints=servicePoints.servicepoints)
+                    return render_template(look_n_feel('servicepoints.html'), looknfeel=look_n_feel.look, session=log_entry, user=user.data, item=newItem.data, servicepoints=servicePoints.servicepoints)
                 
                 else:
                     raise ItemException(item.data)
 
             except InputException as error: # Der user hat ungültige Daten in das Formular eingetragen
-                logger.error("Session: %s InputException: %s" % (logEntry, str(error)))
+                logger.error("Session: %s InputException: %s" % (log_entry, str(error)))
 
                 errors = {}; values = {}
 
@@ -166,53 +177,53 @@ def create_item():
                     else:
                         errors |= {"seitenzahl":escape(request.form.get('seitenzahl'))}
 
-                return render_template(look_n_feel('item.html'), looknfeel=look_n_feel.look, session=logEntry, user=user.data, item=item.data, errors=errors, values=values) 
+                return render_template(look_n_feel('item.html'), looknfeel=look_n_feel.look, session=log_entry, user=user.data, item=item.data, errors=errors, values=values) 
 
             except ItemException as error:
-                logger.error("Session: %s ItemException: %s" % (logEntry, str(error)))
+                logger.error("Session: %s ItemException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="Item")
 
             except FOLIOErrorException as error:
-                logger.error("Session: %s FOLIOErrorException: %s" % (logEntry, str(error)))
+                logger.error("Session: %s FOLIOErrorException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="FOLIOError", error=error.data)
 
             except HRIDException as error:
-                logger.error("Session: %s HRIDException: %s" % (logEntry, str(error)))
+                logger.error("Session: %s HRIDException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="HRID", error=error.data)
 
             except BarcodeException as error:
-                logger.error("Session: %s BarcodeException: %s" % (logEntry, str(error)))
+                logger.error("Session: %s BarcodeException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="Barcode", error=error.data)
 
             except NotFoundException as error:
-                logger.error("Session: %s NotFoundException: %s" % (logEntry, str(error)))
+                logger.error("Session: %s NotFoundException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="NotFound", error=error.data)
             
             except ServicePointException as error:
-                logger.error("Session: %s ServicePointException: %s" % (logEntry, str(error)))
+                logger.error("Session: %s ServicePointException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="ServicePoint", error=error.data)
 
             except HTTPException as error:
-                logger.error("Session: %s HTTPException: %s" % (logEntry, str(error)))
+                logger.error("Session: %s HTTPException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="HTTP", error=error.data)
 
             except BaseException as error:
-                logger.error("Session: %s Something unexpected went wrong! %s" % (logEntry, str(error)))
+                logger.error("Session: %s Something unexpected went wrong! %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="Base")
 
             finally:
                 pass
 
     except ConnectionException as error:
-        logger.error("Session: %s ConnectionException: %s" % (logEntry, str(error)))
+        logger.error("Session: %s ConnectionException: %s" % (log_entry, str(error)))
         return render_template(look_n_feel('errors.html'), exception="Connection")
     
     except UUIDException as error:
-        logger.error("Session: %s UUIDException: %s" % (logEntry, str(error)))
+        logger.error("Session: %s UUIDException: %s" % (log_entry, str(error)))
         return render_template(look_n_feel('errors.html'), exception="UUID", error=error.data, localisation=True)
 
     except BaseException as error:
-        logger.error("Session: %s Something unexpected went wrong! %s" % (logEntry, str(error)))
+        logger.error("Session: %s Something unexpected went wrong! %s" % (log_entry, str(error)))
         return render_template(look_n_feel('errors.html'), exception="Base")
 
     finally:
@@ -231,7 +242,7 @@ def create_request():
     logger         = current_app.logger
 
     try:
-        logEntry = UUIDValue()(request.form.get('session'))
+        log_entry = UUIDValue()(request.form.get('session'))
 
         connection = Connection(connection_ini, logger)
 
@@ -258,59 +269,63 @@ def create_request():
                                 "pickupServicePointId": ServicePointIDValue()(request.form.get('servicePoint'))
                             }).creation_json)
 
-                logger.info("Session: %s Step 3: UserID: %s New Item: %s RequestID: %s" % (logEntry, user.id, item.id, newRequest.id))
+                logger.info("Session: %s Step 3: UserID: %s New Item: %s RequestID: %s" % (log_entry, user.id, item.id, newRequest.id))
 
-                return render_template(look_n_feel('request.html'), looknfeel=look_n_feel.look, session=logEntry, request=newRequest.data)
+                return render_template(look_n_feel('request.html'), looknfeel=look_n_feel.look, session=log_entry, request=newRequest.data)
 
             except ServicePointIDException as error: # Der User hat keine Abholtheke ausgewählt => Formular nochmal anzeigen.
 
                 servicePoints = connection.getAllowedServicePoints(user.id, item.id)
 
-                return render_template(look_n_feel('servicepoints.html'), looknfeel=look_n_feel.look, session=logEntry, user=user.data, item=item.data, servicepoints=servicePoints.servicepoints, error=True)
+                return render_template(look_n_feel('servicepoints.html'), looknfeel=look_n_feel.look, session=log_entry, user=user.data, item=item.data, servicepoints=servicePoints.servicepoints, error=True)
 
             except ServicePointException as error: # Leere Liste! In FOLIO gibt es keine Abholtheken für die Kombination aus User und Item.
                                                    # D.h. das Item ist nicht ausleihbar. Dürfte eigentlich nicht auftreten. Wäre ein bibliothekarisches Problem.
                                                    # Bitte FOLIO richtig konfigurieren :)
-                logger.error("ServicePointException: " + str(error))
+                logger.error("Session: %s ServicePointException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="ServicePoint", error=error.data)
             
             except RequestException as error:
-                logger.error("RequestException: " + str(error))
+                logger.error("Session: %s RequestException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="Request")
 
             except InstanceIDException as error:
-                logger.error("InstanceIDException: " + str(error))
+                logger.error("Session: %s InstanceIDException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="InstanceID", error=error.data)
 
             except ItemIDException as error:
-                logger.error("ItemIDException: " + str(error))
+                logger.error("Session: %s ItemIDException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="ItemId", error=error.data)
 
             except BarcodeException as error:
-                logger.error("BarcodeException: " + str(error))
+                logger.error("Session: %s BarcodeException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="Barcode", error=error.data)
 
             except NotFoundException as error:
-                logger.error("NotFoundException: " + str(error))
+                logger.error("Session: %s NotFoundException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="NotFound", error=error.data)
 
             except FOLIOErrorException as error:
-                logger.error("FOLIOErrorException: " + str(error))
+                logger.error("Session: %s FOLIOErrorException: %s" % (log_entry, str(error)))
                 return render_template(look_n_feel('errors.html'), exception="FOLIOError", error=error.data)
+            
+            except HTTPException as error:
+                logger.error("Session: %s HTTPException: %s" % (log_entry, str(error)))
+                return render_template(look_n_feel('errors.html'), exception="HTTP", error=error.data)
 
             finally:
                 pass
 
     except ConnectionException as error:
-        logger.error("ConnectionException: " + str(error))
+        logger.error("Session: %s ConnectionException: %s" % (log_entry, str(error)))
         return render_template(look_n_feel('errors.html'), exception="Connection")
     
     except UUIDException as error:
-        logger.error("UUIDException: " + str(error))
+        logger.error("Session: %s UUIDException: %s" % (log_entry, str(error)))
         return render_template(look_n_feel('errors.html'), exception="UUID", error=error.data, localisation=True)
 
     except BaseException as error:
-        logger.error("Something unexpected went wrong! " + str(error))
+        logger.error("Session: %s Something unexpected went wrong! %s" % (log_entry, str(error)))
         return render_template(look_n_feel('errors.html'), exception="Base")
 
     finally:

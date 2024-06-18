@@ -177,6 +177,23 @@ class Connection:
     #
     #
 
+    def getUserByExternalSystemId(self, externalSystemId):
+        response = self.get('users?query=externalSystemId=="' + str(externalSystemId) + '"')
+
+        if self.__last_request_status_code == 200:
+            data = json.loads(response.text)
+            if "users" in data and len(data['users']) > 0:
+                return User(data['users'][0])
+            else:
+                raise NotFoundException("User", str(externalSystemId))
+
+        else:
+            raise HTTPException(self.__last_request_status_code)
+
+    #
+    #
+    #
+
     def getItemByHRID(self, hrid):
         response = self.get('inventory/items?query=hrid=="' + str(hrid) + '"')
 

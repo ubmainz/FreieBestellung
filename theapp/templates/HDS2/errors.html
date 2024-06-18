@@ -20,6 +20,17 @@
                         </div>
                     </div>
                 </div>
+            {% elif exception == "ExternalSystemId" %}
+                <h2 class = "beforeHeadingUpgrade" tabindex = "0">System ID Error</h2>
+                <div class="grid">
+                    <div class="adv-group group well row" id="group1">
+                        <div class="col-sm-12 request-form-margin">
+                            {% if error %}
+                                <span class="form-text">Die externe System ID hat kein gültiges Format: {{ error["externalSystemId"] }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
             {% elif exception == "Barcode" %}
                 <h2 class = "beforeHeadingUpgrade" tabindex = "0">Barcode Error</h2>
                 <div class="grid">

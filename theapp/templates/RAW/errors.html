@@ -10,6 +10,11 @@
             {% if error %}
                 <h3>Die Datensatz ID hat kein gültiges Format: {{ error["hrid"] }}</h3>
             {% endif %}
+        {% elif exception == "ExternalSystemId" %}
+            <legend>System ID Error: </legend>
+            {% if error %}
+                <h3>Die externe System ID hat kein gültiges Format: {{ error["externalSystemId"] }}</h3>
+            {% endif %}
         {% elif exception == "Barcode" %}
             <legend>Barcode Error: </legend>
             {% if error %}

@@ -13,31 +13,33 @@ class User():
     """
 
     def __init__(self, user = {}):
-        self.__username =                        user["username"]                           if "username"     in user else ""
-        self.__id =                              user["id"]                                 if "id"           in user else ""
-        self.__barcode =                         user["barcode"]                            if "barcode"      in user else ""
-        self.__active =                          user["active"]                             if "active"       in user else True
-        self.__patronGroup =                     user["patronGroup"]                        if "patronGroup"  in user else ""
-        self.__departments =                     user["departments"]                        if "departments"  in user else []
-        self.__proxyFor =                        user["proxyFor"]                           if "proxyFor"     in user else []
-        self.__personal_lastName =               user["personal"]["lastName"]               if "personal"     in user and "lastName"               in user["personal"] else ""
-        self.__personal_firstName =              user["personal"]["firstName"]              if "personal"     in user and "firstName"              in user["personal"] else ""
-        self.__personal_email =                  user["personal"]["email"]                  if "personal"     in user and "email"                  in user["personal"] else ""
-        self.__personal_addresses =              user["personal"]["addresses"]              if "personal"     in user and "addresses"              in user["personal"] else []
-        self.__personal_preferredContactTypeId = user["personal"]["preferredContactTypeId"] if "personal"     in user and "preferredContactTypeId" in user["personal"] else ""
-        self.__createdDate =                     user["createdDate"]                        if "createdDate"  in user else ""
-        self.__updatedDate =                     user["updatedDate"]                        if "updatedDate"  in user else ""
-        self.__metadata_createdDate =            user["metadata"]["createdDate"]            if "metadata"     in user and "createdDate"            in user["metadata"] else ""
-        self.__metadata_createdByUserId =        user["metadata"]["createdByUserId"]        if "metadata"     in user and "createdByUserId"        in user["metadata"] else ""
-        self.__metadata_updatedDate =            user["metadata"]["updatedDate"]            if "metadata"     in user and "updatedDate"            in user["metadata"] else ""
-        self.__metadata_updatedByUserId =        user["metadata"]["updatedByUserId"]        if "metadata"     in user and "updatedByUserId"        in user["metadata"] else ""
-        self.__customFields =                    user["customFields"]                       if "customFields" in user else {}
+        self.__username =                        user["username"]                           if "username"         in user else ""
+        self.__id =                              user["id"]                                 if "id"               in user else ""
+        self.__externalSystemId =                user["externalSystemId"]                   if "externalSystemId" in user else "" 
+        self.__barcode =                         user["barcode"]                            if "barcode"          in user else ""
+        self.__active =                          user["active"]                             if "active"           in user else True
+        self.__patronGroup =                     user["patronGroup"]                        if "patronGroup"      in user else ""
+        self.__departments =                     user["departments"]                        if "departments"      in user else []
+        self.__proxyFor =                        user["proxyFor"]                           if "proxyFor"         in user else []
+        self.__personal_lastName =               user["personal"]["lastName"]               if "personal"         in user and "lastName"               in user["personal"] else ""
+        self.__personal_firstName =              user["personal"]["firstName"]              if "personal"         in user and "firstName"              in user["personal"] else ""
+        self.__personal_email =                  user["personal"]["email"]                  if "personal"         in user and "email"                  in user["personal"] else ""
+        self.__personal_addresses =              user["personal"]["addresses"]              if "personal"         in user and "addresses"              in user["personal"] else []
+        self.__personal_preferredContactTypeId = user["personal"]["preferredContactTypeId"] if "personal"         in user and "preferredContactTypeId" in user["personal"] else ""
+        self.__createdDate =                     user["createdDate"]                        if "createdDate"      in user else ""
+        self.__updatedDate =                     user["updatedDate"]                        if "updatedDate"      in user else ""
+        self.__metadata_createdDate =            user["metadata"]["createdDate"]            if "metadata"         in user and "createdDate"            in user["metadata"] else ""
+        self.__metadata_createdByUserId =        user["metadata"]["createdByUserId"]        if "metadata"         in user and "createdByUserId"        in user["metadata"] else ""
+        self.__metadata_updatedDate =            user["metadata"]["updatedDate"]            if "metadata"         in user and "updatedDate"            in user["metadata"] else ""
+        self.__metadata_updatedByUserId =        user["metadata"]["updatedByUserId"]        if "metadata"         in user and "updatedByUserId"        in user["metadata"] else ""
+        self.__customFields =                    user["customFields"]                       if "customFields"     in user else {}
 
     @property
     def data(self):
         return {
             "username": self.__username,
             "id": self.__id,
+            "externalSystemId": self.__externalSystemId,
             "barcode": self.__barcode,
             "active": self.__active,
             "patronGroup": self.__patronGroup,
@@ -86,6 +88,10 @@ class User():
     @property
     def id(self):
         return self.__id
+    
+    @property
+    def externalSystemId(self):
+        return self.__externalSystemId
 
     @property
     def barcode(self):
@@ -166,6 +172,10 @@ class User():
     @id.setter
     def id(self, value):
         self.__id = value
+
+    @externalSystemId.setter
+    def externalSystemId(self, value):
+        self.__externalSystemId = value
 
     @barcode.setter
     def barcode(self, value):
