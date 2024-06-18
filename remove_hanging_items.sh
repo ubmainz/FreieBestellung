@@ -5,8 +5,8 @@
 # @version   1.0
 #
 
-SESSION_POS=5 # Position der Session ID in session.log
-ITEM_POS=12   # Position der Item ID in session.log
+SESSION_POS=5 # Position der Session ID in session.app.log
+ITEM_POS=12   # Position der Item ID in session.app.log
 HANGING_ITEMS="hanging_items.txt"
 
 STEP2_MARKER="Step 2"
@@ -25,4 +25,5 @@ do
     python remove_item.py $line
 done < $HANGING_ITEMS
 
+# Remove temporary files
 rm $STEP2_LIST $STEP3_LIST $HANGING_ITEMS
