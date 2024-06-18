@@ -104,7 +104,7 @@ DEBUG_LOG   = LOGFILE_PATH + "debug.app.log"
 ERROR_LOG   = LOGFILE_PATH + "error.app.log"
 ```
 
-SESSION_LOG, DEBUG_LOG and ERROR_LOG define the logfile names of this script. SESSION_LOG will be need to cleanup hanging items with "remove_hanging_items.sh". ERROR_LOG logs all Exceptions raised by the script. DEBUG_LOG is used only, if the Flask web server is running in DEBUG mode. It logs the whole HTTP conversation with FOLIO (all HTTP Requests with URL, Response and Bodies). It is becoming very big very fastly.
+SESSION_LOG, DEBUG_LOG and ERROR_LOG define the logfile names for this script. SESSION_LOG will be needed to cleanup hanging items with "remove_hanging_items.sh". ERROR_LOG logs all Exceptions raised by the script. DEBUG_LOG is used only, if the Flask web server is running in DEBUG mode. It logs the whole HTTP conversation with FOLIO (all HTTP Requests with URL, Response and Bodies). It is becoming very big very fastly.
 
 ```bash
 HDS2_DOMAIN = "https://domain.hebis.de/"
