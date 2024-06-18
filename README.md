@@ -35,7 +35,7 @@ In a development setting the app can now been run with
 (.venv) user@host:~/projects/FreieBestellung# flask run [--debug]
 ```
 
-The Flask web server will start by default on Port 5000 and can be stopped with 'Ctrl+C'. For more information about Flask see the Flask documentation. Afterwards the virtual environment can be stopped with "deactivate".
+The Flask web server will start by default on Port 5000 and can be stopped with 'Ctrl+C'. For more information about Flask see the [Flask](https://flask.palletsprojects.com/en/3.0.x/) documentation. Afterwards the virtual environment can be stopped with "deactivate".
 
 ```bash
 (.venv) user@host:~/projects/FreieBestellung# deactivate
