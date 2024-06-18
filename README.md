@@ -89,7 +89,7 @@ CONNECTION_INI = "connection.ini"
 
 With EXTERNAL_SYSTEM_ID_REGEX and EXTERNAL_SYSTEM_ID_ENV the users login identifier can be configured.
 
-EXTERNAL_SYSTEM_ID_REGEX defines the format of your users identifier e.g. stored in an IDM. In FOLIO this ID needs to be stored in the users externalSystemId (Personen App: "Externe system-ID") field. 
+EXTERNAL_SYSTEM_ID_REGEX defines the format of your users identifier e.g. stored in an IDM. In FOLIO this ID needs to be stored in the users externalSystemId (Personen App: "Externe System-ID") field. 
 
 EXTERNAL_SYSTEM_ID_ENV defines the server environment variable that is used to send the users identifier to the script. If you use a Single-Sign-On system like e.g. Shibboleth, this name can normally be configured in Shibboleth.
 
