@@ -81,7 +81,7 @@ ENDPOINT defines the URL path to the script. e.g. https://scripts.domain.de/requ
 ENDPOINT = "request"
 ```
 
-CONNECTION_INI defines the file where your connection to FOLIO is configured.
+CONNECTION_INI defines the file where your connection to FOLIO is configured. Normally "connection.ini".
 
 ```bash
 CONNECTION_INI = "connection.ini"
@@ -115,4 +115,3 @@ HDS2_HOME_URL    = HDS2_DOMAIN + "main/ubxyz/"
 HDS2_ACCOUNT_URL = HDS2_HOME_URL + "MyResearch/Home"
 HDS2_HOLDS_URL   = HDS2_HOME_URL + "MyResearch/Holds"
 ```
-
