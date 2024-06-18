@@ -67,7 +67,7 @@ password=topsecret123
 
 ### Application
 
-The application itself can be configured in the file
+The application itself can be configured in the file:
 
 ```bash
 /theapp/config.py
@@ -75,17 +75,19 @@ The application itself can be configured in the file
 
 Therefore copy config.py.tmpl to config.py and adjust your personal configuration:
 
+ENDPOINT defines the URL path to the script. e.g. https://scripts.domain.de/request .
+
 ```bash
 ENDPOINT = "request"
 ```
 
-ENDPOINT defines the URL path to the script. e.g. https://scripts.domain.de/request .
+CONNECTION_INI defines the file where your connection to FOLIO is configured.
 
 ```bash
 CONNECTION_INI = "connection.ini"
 ```
 
-CONNECTION_INI defines the file where your connection to FOLIO is configured.
+With EXTERNAL_SYSTEM_ID_REGEX and EXTERNAL_SYSTEM_ID_ENV the users login identifier can be configured. EXTERNAL_SYSTEM_ID_REGEX defines the format of your users identifier e.g. stored in an IDM. In FOLIO this ID needs to be stored in the users externalSystemId field. EXTERNAL_SYSTEM_ID_ENV defines the server environment variable that is used to send the users identifier to the script. If you use a Single-Sign-On system like e.g. Shibboleth, this name can normally be configured in Shibboleth.
 
 ```bash
 # Definition der externalSystemId (z.B.: Barcode => 12 Digits)
@@ -94,7 +96,7 @@ EXTERNAL_SYSTEM_ID_REGEX = "^\d{12}$"
 EXTERNAL_SYSTEM_ID_ENV = "HTTP_BARCODE"
 ```
 
-With EXTERNAL_SYSTEM_ID_REGEX and EXTERNAL_SYSTEM_ID_ENV the users login identifier can be configured. EXTERNAL_SYSTEM_ID_REGEX defines the format of your users identifier e.g. stored in an IDM. In FOLIO this ID needs to be stored in the users externalSystemId field. EXTERNAL_SYSTEM_ID_ENV defines the server environment variable that is used to send the users identifier to the script. If you use a Single-Sign-On system like e.g. Shibboleth, this name can normally be configured in Shibboleth.
+SESSION_LOG, DEBUG_LOG and ERROR_LOG define the logfile names for this script. SESSION_LOG will be needed to cleanup hanging items with "remove_hanging_items.sh". ERROR_LOG logs all Exceptions raised by the script. DEBUG_LOG is used only, if the [Flask](https://flask.palletsprojects.com/en/3.0.x/) web server is running in DEBUG mode. It logs the whole HTTP conversation with FOLIO (all HTTP Requests with URL, Response and Bodies) and is becoming very big very fastly.
 
 ```bash
 LOGFILE_PATH = "/path/to/logfiles/"
@@ -104,7 +106,7 @@ DEBUG_LOG   = LOGFILE_PATH + "debug.app.log"
 ERROR_LOG   = LOGFILE_PATH + "error.app.log"
 ```
 
-SESSION_LOG, DEBUG_LOG and ERROR_LOG define the logfile names for this script. SESSION_LOG will be needed to cleanup hanging items with "remove_hanging_items.sh". ERROR_LOG logs all Exceptions raised by the script. DEBUG_LOG is used only, if the [Flask](https://flask.palletsprojects.com/en/3.0.x/) web server is running in DEBUG mode. It logs the whole HTTP conversation with FOLIO (all HTTP Requests with URL, Response and Bodies) and is becoming very big very fastly.
+The HDS2 variables are used in the HTML templates to send the user back to the right HDS2 instance he is coming from...
 
 ```bash
 HDS2_DOMAIN = "https://domain.hebis.de/"
@@ -114,4 +116,3 @@ HDS2_ACCOUNT_URL = HDS2_HOME_URL + "MyResearch/Home"
 HDS2_HOLDS_URL   = HDS2_HOME_URL + "MyResearch/Holds"
 ```
 
-The HDS2 variables are used in the HTML templates to send the user back to the right HDS2 instance he is coming from...
