@@ -30,6 +30,11 @@ Now install the libraries "Flask" and "requests" with the packet manager pip
 (.venv )user@host:~/projects/FreieBestellung# pip install requests
 ```
 
+For use in production install the wsgi server "gunicorn" too.
+```bash
+(.venv) user@host:~/projects/FreieBestellung# pip install gunicorn
+```
+
 In a development setting the app can now been run with
 ```bash
 (.venv) user@host:~/projects/FreieBestellung# flask run [--debug]
@@ -119,3 +124,6 @@ HDS2_HOME_URL    = HDS2_DOMAIN + "main/ubxyz/"
 HDS2_ACCOUNT_URL = HDS2_HOME_URL + "MyResearch/Home"
 HDS2_HOLDS_URL   = HDS2_HOME_URL + "MyResearch/Holds"
 ```
+
+## Cleanup hanging Items
+
