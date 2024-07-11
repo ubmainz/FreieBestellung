@@ -9,7 +9,7 @@ import uuid
 from flask import Blueprint, request, current_app, render_template
 from markupsafe import escape
 
-from folio.looknfeel import LookNFeel
+from theapp.looknfeel import LookNFeel
 
 from folio.connection import Connection
 
