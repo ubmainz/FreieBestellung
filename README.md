@@ -38,54 +38,6 @@ Run 'docker run' to start the container.
 docker run -d -it --name request-form -h request-form -p 8080:8080 -v request-form:/var/log/request-form request-form
 ```
 
-
-## Installation
-
-This script is based on the Python lightweight web framework [Flask](https://flask.palletsprojects.com/en/3.0.x/). To install this script Python 3.9 or later is required. Also the Python library "requests" is needed.
-
-To install this script check out these repository files to your project folder. e.g. ~/projects
-
-```bash
-user@host:~/projects# git clone git@github.com:ubmainz/FreieBestellung.git
-```
-
-Create a virtual Python environment in your project folder ...
-```bash
-user@host:~/projects# cd FreieBestellung
-
-user@host:~/projects/FreieBestellung# python -m venv .venv
-```
-
-... and activate the virtual environment:
-```bash
-user@host:~/projects/FreieBestellung# . .venv/bin/activate
-```
-
-Now install the libraries "Flask" and "requests" with the packet manager pip
-```bash
-(.venv) user@host:~/projects/FreieBestellung# pip install Flask
-
-(.venv )user@host:~/projects/FreieBestellung# pip install requests
-```
-
-For use in production install the wsgi server "gunicorn" too.
-```bash
-(.venv) user@host:~/projects/FreieBestellung# pip install gunicorn
-```
-
-In a development setting the app can now been run with
-```bash
-(.venv) user@host:~/projects/FreieBestellung# flask run [--debug]
-```
-
-The Flask web server will start by default on Port 5000 and can be stopped with 'Ctrl+C'. For more information about Flask see the [Flask](https://flask.palletsprojects.com/en/3.0.x/) documentation. Afterwards the virtual environment can be stopped with "deactivate".
-
-```bash
-(.venv) user@host:~/projects/FreieBestellung# deactivate
-
-user@host:~/projects/FreieBestellung#
-```
-
 ## Configuration
 
 ### Connection to FOLIO
@@ -161,6 +113,53 @@ HDS2_DOMAIN = "https://domain.hebis.de/"
 HDS2_HOME_URL    = HDS2_DOMAIN + "main/ubxyz/"
 HDS2_ACCOUNT_URL = HDS2_HOME_URL + "MyResearch/Home"
 HDS2_HOLDS_URL   = HDS2_HOME_URL + "MyResearch/Holds"
+```
+
+## Installation in virtual Python environment
+
+This script is based on the Python lightweight web framework [Flask](https://flask.palletsprojects.com/en/3.0.x/). To install this script Python 3.9 or later is required. Also the Python library "requests" is needed.
+
+To install this script check out these repository files to your project folder. e.g. ~/projects
+
+```bash
+user@host:~/projects# git clone git@github.com:ubmainz/FreieBestellung.git
+```
+
+Create a virtual Python environment in your project folder ...
+```bash
+user@host:~/projects# cd FreieBestellung
+
+user@host:~/projects/FreieBestellung# python -m venv .venv
+```
+
+... and activate the virtual environment:
+```bash
+user@host:~/projects/FreieBestellung# . .venv/bin/activate
+```
+
+Now install the libraries "Flask" and "requests" with the packet manager pip
+```bash
+(.venv) user@host:~/projects/FreieBestellung# pip install Flask
+
+(.venv )user@host:~/projects/FreieBestellung# pip install requests
+```
+
+For use in production install the wsgi server "gunicorn" too.
+```bash
+(.venv) user@host:~/projects/FreieBestellung# pip install gunicorn
+```
+
+In a development setting the app can now been run with
+```bash
+(.venv) user@host:~/projects/FreieBestellung# flask run [--debug]
+```
+
+The Flask web server will start by default on Port 5000 and can be stopped with 'Ctrl+C'. For more information about Flask see the [Flask](https://flask.palletsprojects.com/en/3.0.x/) documentation. Afterwards the virtual environment can be stopped with "deactivate".
+
+```bash
+(.venv) user@host:~/projects/FreieBestellung# deactivate
+
+user@host:~/projects/FreieBestellung#
 ```
 
 ## Cleanup hanging Items
