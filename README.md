@@ -1,6 +1,36 @@
 # FreieBestellung
 Webformular für die freie Bestellung von Zeitschriften (Journals) in FOLIO
 
+## Running script with Docker
+
+To run the script with Docker check out the repository to your project folder. e.g. ~/projects
+
+```bash
+user@host:~/projects# git clone https://github.com/ubmainz/FreieBestellung.git
+```
+
+Copy config.py.tmpl to config.py to configure the script, and connection.ini.tmpl to connection.ini to configure the connection of the script to FOLIO.
+```bash
+user@host:~/projects# cd FreieBestellung
+
+user@host:~/projects/FreieBestellung# cp config.py.tmpl config.py
+user@host:~/projects/FreieBestellung# vim config.py
+
+user@host:~/projects/FreieBestellung# cp connection.ini.tmpl connection.ini
+user@host:~/projects/FreieBestellung# vim connection.ini
+```
+
+Run docker build to create the image.
+```bash
+user@host:~/projects/FreieBestellung# docker build -t request-form .
+```
+
+Run docker run to start the container.
+```bash
+user@host:~/projects/FreieBestellung# docker run -d -it --name request-form -h request-form -p 8080:8080 -v request-form:/var/log/request-form request-form
+```
+
+
 ## Installation
 
 This script is based on the Python lightweight web framework [Flask](https://flask.palletsprojects.com/en/3.0.x/). To install this script Python 3.9 or later is required. Also the Python library "requests" is needed.
