@@ -21,16 +21,17 @@ from folio.entities.request import Request
 from folio.values.externalsystemid import ExternalSystemID, ExternalSystemIDValue
 from folio.values.barcode import Barcode, BarcodeValue
 from folio.values.hrid import HRID, HRIDValue
-from folio.values.uuid import UUIDValue, ItemIDValue, ServicePointIDValue 
-
-from user.values.jahrgang import Jahrgang, JahrgangValue
-from user.values.band import Band, BandValue
-from user.values.seitenzahldatum import SeitenzahlDatum, SeitenzahlDatumValue
+from folio.values.uuid import UUIDValue, ItemIDValue, ServicePointIDValue
 
 from folio.exceptions import ConnectionException, HTTPException, HRIDException, BarcodeException, UUIDException, \
                              ItemException, RequestException, ServicePointException,  \
                              FOLIOErrorException, InputException, NotFoundException, \
-                             InstanceIDException, ItemIDException, ServicePointIDException, ExternalSystemIDException
+                             InstanceIDException, ItemIDException, ServicePointIDException, ExternalSystemIDException, \
+                             EnvironmentException
+
+from user.values.jahrgang import Jahrgang, JahrgangValue
+from user.values.band import Band, BandValue
+from user.values.seitenzahldatum import SeitenzahlDatum, SeitenzahlDatumValue
 
 requestform = Blueprint('requestform', __name__)
 
@@ -56,6 +57,9 @@ def create_form():
                     # Debugging ohne IDM. User über GET Parameter 'externalSystemId' holen.
                     exSysId = ExternalSystemIDValue(ex_sys_id_regex)(request.args.get('exSysId', ''))
                 else:
+                    if request.environ.get(ex_sys_id_env) == None:
+                        raise EnvironmentException(ex_sys_id_env)
+                    
                     exSysId = ExternalSystemIDValue(ex_sys_id_regex)(request.environ.get(ex_sys_id_env))
 
                 user = connection.getUserByExternalSystemId(exSysId)
@@ -68,6 +72,10 @@ def create_form():
                 logger.info("Session: %s Step 1: UserID: %s Intellectual Item: %s" % (log_entry, user.id, item.id))
 
                 return render_template(look_n_feel('item.html'), looknfeel=look_n_feel.look, session=log_entry, user=user.data, item=item.data, localisation=True)
+
+            except EnvironmentException as error:
+                logger.error("Session: %s EnvironmentException: %s" % (log_entry, str(error)))
+                return render_template(look_n_feel('errors.html'), exception="Environment", error=error.data, localisation=True)
 
             except ExternalSystemIDException as error:
                 logger.error("Session: %s ExternalSystemIDException: %s" % (log_entry, str(error)))

@@ -229,6 +229,22 @@ class ExternalSystemIDException(Exception):
         return {"externalSystemId":self.args[0]}
 
 #
+# Environment variable not set
+#
+
+class EnvironmentException(Exception):
+
+    def __init__(self, name):
+        super().__init__(name)
+
+    def __str__(self):
+        return "Die Umgebungsvariable " + str(self.args[0] + "ist nicht gesetzt.")
+
+    @property
+    def data(self):
+        return {"envName":self.args[0]}
+
+#
 # Barcode
 #
 

@@ -15,6 +15,11 @@
                         {% if error %}
                             <h3>Die Datensatz ID hat kein gültiges Format: {{ error["hrid"] }}</h3>
                         {% endif %}
+                    {% elif exception == "Environment" %}
+                        <legend>Environment Error: </legend>
+                        {% if error %}
+                            <h3>Die Umgebungsvariable {{ error["envName"] }} ist nicht gesetzt.</h3>
+                        {% endif %}
                     {% elif exception == "ExternalSystemId" %}
                         <legend>System ID Error: </legend>
                         {% if error %}
