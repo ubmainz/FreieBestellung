@@ -1,7 +1,7 @@
 # FreieBestellung
 Webformular für die freie Bestellung von Zeitschriften (Journals) in FOLIO
 
-## Running script with Docker
+## Running with Docker
 
 To run the script with Docker check out the repository to your project folder. e.g. ~/projects
 
