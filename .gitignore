@@ -10,4 +10,5 @@
 /theapp/logic/__pycache__
 /user/__pycache__
 /user/values/__pycache__
+/config.py
 /connection.ini
