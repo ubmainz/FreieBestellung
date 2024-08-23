@@ -40,7 +40,7 @@ docker run -d -it --name request-form -h request-form -p 8080:8080 -v request-fo
 
 ## Configuration
 
-### Connection to FOLIO
+### Connection to FOLIO (connection.ini)
 
 To connect the script with a running FOLIO instance the Connection object needs to be configured correctly.
 
@@ -60,7 +60,7 @@ username=scriptuser
 password=topsecret123
 ```
 
-### Application
+### Application (config.py)
 
 The application itself can be configured in the file:
 
