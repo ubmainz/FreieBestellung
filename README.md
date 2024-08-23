@@ -8,6 +8,9 @@ To run the script with Docker check out the repository to your project folder. e
 ```bash
 git clone https://github.com/ubmainz/FreieBestellung.git
 ```
+```bash
+user@host:~/projects# cd FreieBestellung
+```
 
 Copy "config.py.tmpl" to "config.py" to configure the script.
 ```bash
