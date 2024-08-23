@@ -12,20 +12,20 @@ user@host:~/projects# git clone https://github.com/ubmainz/FreieBestellung.git
 user@host:~/projects# cd FreieBestellung
 ```
 
-Copy "config.py.tmpl" to "config.py" to configure the script.
-```bash
-cp config.py.tmpl config.py
-```
-```bash
-vim config.py
-```
-
 Copy "connection.ini.tmpl" to "connection.ini" to configure the connection to your FOLIO instance.
 ```bash
 cp connection.ini.tmpl connection.ini
 ```
 ```bash
 vim connection.ini
+```
+
+Copy "config.py.tmpl" to "config.py" to configure the script.
+```bash
+cp config.py.tmpl config.py
+```
+```bash
+vim config.py
 ```
 
 Run 'docker build' to create the image.
