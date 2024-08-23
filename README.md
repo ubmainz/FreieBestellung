@@ -65,7 +65,7 @@ password=topsecret123
 The application itself can be configured in the file:
 
 ```bash
-/theapp/config.py
+config.py
 ```
 
 Therefore copy config.py.tmpl to config.py and adjust your personal configuration:
@@ -90,7 +90,7 @@ EXTERNAL_SYSTEM_ID_ENV defines the server environment variable that is used to s
 
 ```bash
 # Definition der externalSystemId (z.B.: Barcode => 12 Digits)
-EXTERNAL_SYSTEM_ID_REGEX = "^\d{12}$"
+EXTERNAL_SYSTEM_ID_REGEX = "^\\d{12}$"
 # Server Umgebungsvariable mit der externalSystemId (z.B.: Feld in Shibboleth)
 EXTERNAL_SYSTEM_ID_ENV = "HTTP_BARCODE"
 ```
@@ -98,7 +98,7 @@ EXTERNAL_SYSTEM_ID_ENV = "HTTP_BARCODE"
 SESSION_LOG, DEBUG_LOG and ERROR_LOG define the logfile names for this script. SESSION_LOG will be needed to cleanup hanging items with "remove_hanging_items.sh". ERROR_LOG logs all Exceptions raised by the script. DEBUG_LOG is used only, if the [Flask](https://flask.palletsprojects.com/en/3.0.x/) web server is running in DEBUG mode. It logs the whole HTTP conversation with FOLIO (all HTTP Requests with URL, Response and Bodies) and is becoming very big very fastly.
 
 ```bash
-LOGFILE_PATH = "/path/to/logfiles/"
+LOGFILE_PATH = "/var/log/request-form/"
 
 SESSION_LOG = LOGFILE_PATH + "session.app.log"
 DEBUG_LOG   = LOGFILE_PATH + "debug.app.log"
