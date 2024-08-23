@@ -9,24 +9,24 @@ To run the script with Docker check out the repository to your project folder. e
 user@host:~/projects# git clone https://github.com/ubmainz/FreieBestellung.git
 ```
 
-Copy 'config.py.tmpl' to 'config.py' to configure the script.
+Copy "config.py.tmpl" to "config.py" to configure the script.
 ```bash
 user@host:~/projects/FreieBestellung# cp config.py.tmpl config.py
 user@host:~/projects/FreieBestellung# vim config.py
 ```
 
-Copy 'connection.ini.tmpl' to 'connection.ini' to configure the connection to your FOLIO instance.
+Copy "connection.ini.tmpl" to "connection.ini" to configure the connection to your FOLIO instance.
 ```bash
 user@host:~/projects/FreieBestellung# cp connection.ini.tmpl connection.ini
 user@host:~/projects/FreieBestellung# vim connection.ini
 ```
 
-Run docker build to create the image.
+Run 'docker build' to create the image.
 ```bash
 user@host:~/projects/FreieBestellung# docker build -t request-form .
 ```
 
-Run docker run to start the container.
+Run 'docker run' to start the container.
 ```bash
 user@host:~/projects/FreieBestellung# docker run -d -it --name request-form -h request-form -p 8080:8080 -v request-form:/var/log/request-form request-form
 ```
