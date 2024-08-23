@@ -6,7 +6,7 @@ Webformular für die freie Bestellung von Zeitschriften (Journals) in FOLIO
 To run the script with Docker check out the repository to your project folder. e.g. ~/projects
 
 ```bash
-git clone https://github.com/ubmainz/FreieBestellung.git
+user@host:~/projects# git clone https://github.com/ubmainz/FreieBestellung.git
 ```
 ```bash
 user@host:~/projects# cd FreieBestellung
