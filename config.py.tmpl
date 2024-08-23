@@ -9,11 +9,11 @@ ENDPOINT = "request"
 CONNECTION_INI = "connection.ini"
 
 # Definition der externalSystemId (z.B.: Barcode => 12 Digits)
-EXTERNAL_SYSTEM_ID_REGEX = "^\d{12}$"
+EXTERNAL_SYSTEM_ID_REGEX = "^\\d{12}$"
 # Server Umgebungsvariable mit der externalSystemId (z.B.: Feld in Shibboleth)
 EXTERNAL_SYSTEM_ID_ENV = "HTTP_BARCODE"
 
-LOGFILE_PATH = "/path/to/logfiles/"
+LOGFILE_PATH = "/var/log/request-form/"
 
 SESSION_LOG = LOGFILE_PATH + "session.app.log"
 DEBUG_LOG   = LOGFILE_PATH + "debug.app.log"
