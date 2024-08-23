@@ -12,7 +12,7 @@ user@host:~/projects# git clone https://github.com/ubmainz/FreieBestellung.git
 user@host:~/projects# cd FreieBestellung
 ```
 
-Copy "connection.ini.tmpl" to "connection.ini" to configure the scripts connection to your FOLIO instance. Configuration see below.
+Copy "connection.ini.tmpl" to "connection.ini" to configure the scripts connection to your FOLIO instance. Configuration [see below](#connection-to-folio-connectionini).
 ```bash
 cp connection.ini.tmpl connection.ini
 ```
@@ -20,7 +20,7 @@ cp connection.ini.tmpl connection.ini
 vim connection.ini
 ```
 
-Copy "config.py.tmpl" to "config.py" to configure the application itself. Configuration see below.
+Copy "config.py.tmpl" to "config.py" to configure the application itself. Configuration [see below](#application-configpy).
 ```bash
 cp config.py.tmpl config.py
 ```
@@ -40,7 +40,7 @@ docker run -d -it --name request-form -h request-form -p 8080:8080 -v request-fo
 
 ## Configuration
 
-### Connection to FOLIO (connection.ini)
+### Connection to FOLIO ("connection.ini")
 
 To connect the script with a running FOLIO instance the Connection object needs to be configured correctly.
 
@@ -60,7 +60,7 @@ username=scriptuser
 password=topsecret123
 ```
 
-### Application (config.py)
+### Application ("config.py")
 
 The application itself can be configured in the file:
 
