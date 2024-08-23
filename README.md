@@ -12,7 +12,7 @@ user@host:~/projects# git clone https://github.com/ubmainz/FreieBestellung.git
 user@host:~/projects# cd FreieBestellung
 ```
 
-Copy "connection.ini.tmpl" to "connection.ini" to configure the connection to your FOLIO instance. Configuration see below.
+Copy "connection.ini.tmpl" to "connection.ini" to configure the scripts connection to your FOLIO instance. Configuration see below.
 ```bash
 cp connection.ini.tmpl connection.ini
 ```
@@ -20,7 +20,7 @@ cp connection.ini.tmpl connection.ini
 vim connection.ini
 ```
 
-Copy "config.py.tmpl" to "config.py" to configure the script. Configuration see below.
+Copy "config.py.tmpl" to "config.py" to configure the application itself. Configuration see below.
 ```bash
 cp config.py.tmpl config.py
 ```
