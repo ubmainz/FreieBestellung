@@ -23,12 +23,12 @@ user@host:~/projects/FreieBestellung# vim connection.ini
 
 Run 'docker build' to create the image.
 ```bash
-user@host:~/projects/FreieBestellung# docker build -t request-form .
+docker build -t request-form .
 ```
 
 Run 'docker run' to start the container.
 ```bash
-user@host:~/projects/FreieBestellung# docker run -d -it --name request-form -h request-form -p 8080:8080 -v request-form:/var/log/request-form request-form
+docker run -d -it --name request-form -h request-form -p 8080:8080 -v request-form:/var/log/request-form request-form
 ```
 
 
