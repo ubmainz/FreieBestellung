@@ -170,6 +170,11 @@ class Connection:
     #
 
     def getUserByBarcode(self, barcode):
+        """ required access rights:
+
+          users.collection.get ("users collection get")
+        
+        """
         response = self.get('users?query=barcode=="' + str(barcode) + '"')
 
         if self.__last_request_status_code == 200:
@@ -187,6 +192,11 @@ class Connection:
     #
 
     def getUserByExternalSystemId(self, externalSystemId):
+        """ required access rights:
+
+          users.collection.get ("users collection get")
+        
+        """
         response = self.get('users?query=externalSystemId=="' + str(externalSystemId) + '"')
 
         if self.__last_request_status_code == 200:
@@ -204,6 +214,11 @@ class Connection:
     #
 
     def getItemByHRID(self, hrid):
+        """ required access rights:
+
+          inventory.items.collection.get ("Inventory - get item collection")
+        
+        """
         response = self.get('inventory/items?query=hrid=="' + str(hrid) + '"')
 
         if self.__last_request_status_code == 200:
@@ -224,6 +239,11 @@ class Connection:
     #
 
     def getItemByID(self, id):
+        """ required access rights:
+
+          inventory.items.item.get ("Inventory - get individual item")
+        
+        """
         response = self.get("inventory/items/" + str(id))
 
         if self.__last_request_status_code == 200:
@@ -240,6 +260,11 @@ class Connection:
     #
 
     def getInstanceIdByItem(self, item):
+        """ required access rights:
+
+          inventory-storage.holdings.item.get ("inventory storage - get individual holdings record")
+        
+        """
         response = self.get("holdings-storage/holdings/" + str(item.holdingsRecordId))
 
         if self.__last_request_status_code == 200:
@@ -260,6 +285,11 @@ class Connection:
     #
 
     def getAllowedServicePoints(self, requesterId, itemId):
+        """ required access rights:
+
+          circulation.requests.allowed-service-points.get ("circulation - get allowed pickup service points for request")
+        
+        """
         response = self.get("circulation/requests/allowed-service-points?requesterId=" + str(requesterId) + "&itemId=" + str(itemId) + "&operation=create")
 
         if self.__last_request_status_code == 200:
@@ -276,6 +306,11 @@ class Connection:
     #
 
     def createItem(self, itemData):
+        """ required access rights:
+
+          inventory-storage.items.item.post ("inventory storage - create individual item")
+        
+        """
         response = self.post("item-storage/items", itemData)
 
         if self.__last_request_status_code == 201:
@@ -292,6 +327,11 @@ class Connection:
     #
 
     def createRequest(self, requestData):
+        """ required access rights:
+
+          circulation.requests.item.post ("circulation - create individual requests")
+        
+        """
         response = self.post("circulation/requests", requestData)
 
         if self.__last_request_status_code == 201:
@@ -325,6 +365,11 @@ class Connection:
     #
 
     def deleteItem(self, id):
+        """ required access rights:
+
+          inventory.items.item.delete ("Inventory - delete individual item")
+        
+        """        
         self.delete("inventory/items/" + str(id))
 
         if self.__last_request_status_code == 204:
