@@ -4,9 +4,7 @@
 # @version   1.0
 #
 
-import requests
-import configparser
-import json
+import requests, configparser, json
 
 from folio.entities.user import User
 from folio.entities.item import Item
@@ -139,22 +137,33 @@ class Connection:
         if self.__logger: self.__logger.debug("GET " + self.__url + endpoint)
         response = requests.get(self.__url + endpoint, headers=self.__request_headers, data=self.__request_payload)
         self.__last_request_status_code = response.status_code
-        if self.__logger: self.__logger.debug("Response: " + str(self.__last_request_status_code) + "\nResponse Body: " + response.text)
+        self.logResponse(response)
         return response
 
     def post(self, endpoint, body):
         if self.__logger: self.__logger.debug("POST " + self.__url + endpoint + "\nBody: " + body)
         response = requests.post(self.__url + endpoint, headers=self.__request_headers, data=body)
         self.__last_request_status_code = response.status_code
-        if self.__logger: self.__logger.debug("Response: " + str(self.__last_request_status_code) + "\nResponse Body: " + response.text)
+        self.logResponse(response)
         return response
     
     def delete(self, endpoint):
         if self.__logger: self.__logger.debug("DELETE " + self.__url + endpoint)
         response = requests.delete(self.__url + endpoint, headers=self.__request_headers, data=self.__request_payload)
         self.__last_request_status_code = response.status_code
-        if self.__logger: self.__logger.debug("Response: " + str(self.__last_request_status_code) + "\nResponse Body: " + response.text)
+        self.logResponse(response)
         return response
+
+    #
+    # logging
+    #
+
+    def logResponse(self, response):
+        if self.__logger:
+            logEntry = "Response: " + str(self.__last_request_status_code) + "\nResponse Body: " + response.text
+            if self.__last_request_status_code == 403:
+                self.__logger.error(logEntry)
+            self.__logger.debug(logEntry)
 
     #
     # GET data methods
@@ -315,7 +324,7 @@ class Connection:
     # DELETE data methods
     #
 
-    def deleteItem(self, id):        
+    def deleteItem(self, id):
         self.delete("inventory/items/" + str(id))
 
         if self.__last_request_status_code == 204:
