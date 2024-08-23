@@ -6,19 +6,23 @@ Webformular für die freie Bestellung von Zeitschriften (Journals) in FOLIO
 To run the script with Docker check out the repository to your project folder. e.g. ~/projects
 
 ```bash
-user@host:~/projects# git clone https://github.com/ubmainz/FreieBestellung.git
+git clone https://github.com/ubmainz/FreieBestellung.git
 ```
 
 Copy "config.py.tmpl" to "config.py" to configure the script.
 ```bash
-user@host:~/projects/FreieBestellung# cp config.py.tmpl config.py
-user@host:~/projects/FreieBestellung# vim config.py
+cp config.py.tmpl config.py
+```
+```bash
+vim config.py
 ```
 
 Copy "connection.ini.tmpl" to "connection.ini" to configure the connection to your FOLIO instance.
 ```bash
-user@host:~/projects/FreieBestellung# cp connection.ini.tmpl connection.ini
-user@host:~/projects/FreieBestellung# vim connection.ini
+cp connection.ini.tmpl connection.ini
+```
+```bash
+vim connection.ini
 ```
 
 Run 'docker build' to create the image.
