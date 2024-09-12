@@ -8,6 +8,8 @@
 /theapp/__pycache__
 /theapp/config.py
 /theapp/logic/__pycache__
+/theapp/translations/de/LC_MESSAGES/messages.mo
+/theapp/translations/en/LC_MESSAGES/messages.mo
 /user/__pycache__
 /user/values/__pycache__
 /config.py
