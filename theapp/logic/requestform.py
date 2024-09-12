@@ -32,6 +32,7 @@ from folio.exceptions import ConnectionException, HTTPException, HRIDException, 
 from user.values.jahrgang import Jahrgang, JahrgangValue
 from user.values.band import Band, BandValue
 from user.values.seitenzahldatum import SeitenzahlDatum, SeitenzahlDatumValue
+from user.values.language import Language, LanguageValue
 
 requestform = Blueprint('requestform', __name__)
 
@@ -39,6 +40,8 @@ requestform = Blueprint('requestform', __name__)
 def create_form():
 
     look_n_feel = LookNFeel(request.args.get('looknfeel'))
+
+    language = LanguageValue()(request.args.get('lng'))
 
     ex_sys_id_env   = current_app.config["EXTERNAL_SYSTEM_ID_ENV"]
     ex_sys_id_regex = current_app.config["EXTERNAL_SYSTEM_ID_REGEX"]
@@ -71,7 +74,7 @@ def create_form():
 
                 logger.info("Session: %s Step 1: UserID: %s Intellectual Item: %s" % (log_entry, user.id, item.id))
 
-                return render_template(look_n_feel('item.html'), looknfeel=look_n_feel.look, session=log_entry, user=user.data, item=item.data, localisation=True)
+                return render_template(look_n_feel('item.html'), looknfeel=look_n_feel.look, session=log_entry, user=user.data, item=item.data, localisation=True, language=language)
 
             except EnvironmentException as error:
                 logger.error("Session: %s EnvironmentException: %s" % (log_entry, str(error)))
@@ -124,6 +127,8 @@ def create_item():
 
     look_n_feel = LookNFeel(request.form.get('looknfeel'))
 
+    language = LanguageValue()(request.form.get('language'))
+
     connection_ini = current_app.config["CONNECTION_INI"]
     logger         = current_app.logger
 
@@ -157,7 +162,7 @@ def create_item():
 
                     logger.info("Session: %s Step 2: UserID: %s New Item: %s" % (log_entry, user.id, newItem.id))
 
-                    return render_template(look_n_feel('servicepoints.html'), looknfeel=look_n_feel.look, session=log_entry, user=user.data, item=newItem.data, servicepoints=servicePoints.servicepoints)
+                    return render_template(look_n_feel('servicepoints.html'), looknfeel=look_n_feel.look, session=log_entry, user=user.data, item=newItem.data, servicepoints=servicePoints.servicepoints, language=language)
                 
                 else:
                     raise ItemException(item.data)
@@ -185,7 +190,7 @@ def create_item():
                     else:
                         errors |= {"seitenzahl":escape(request.form.get('seitenzahl'))}
 
-                return render_template(look_n_feel('item.html'), looknfeel=look_n_feel.look, session=log_entry, user=user.data, item=item.data, errors=errors, values=values) 
+                return render_template(look_n_feel('item.html'), looknfeel=look_n_feel.look, session=log_entry, user=user.data, item=item.data, errors=errors, values=values, language=language) 
 
             except ItemException as error:
                 logger.error("Session: %s ItemException: %s" % (log_entry, str(error)))
@@ -246,6 +251,8 @@ def create_request():
 
     look_n_feel = LookNFeel(request.form.get('looknfeel'))
 
+    language = LanguageValue()(request.form.get('language'))
+
     connection_ini = current_app.config["CONNECTION_INI"]
     logger         = current_app.logger
 
@@ -285,7 +292,7 @@ def create_request():
 
                 servicePoints = connection.getAllowedServicePoints(user.id, item.id)
 
-                return render_template(look_n_feel('servicepoints.html'), looknfeel=look_n_feel.look, session=log_entry, user=user.data, item=item.data, servicepoints=servicePoints.servicepoints, error=True)
+                return render_template(look_n_feel('servicepoints.html'), looknfeel=look_n_feel.look, session=log_entry, user=user.data, item=item.data, servicepoints=servicePoints.servicepoints, language=language, exception="ServicePointID", error=True)
 
             except ServicePointException as error: # Leere Liste! In FOLIO gibt es keine Abholtheken für die Kombination aus User und Item.
                                                    # D.h. das Item ist nicht ausleihbar. Dürfte eigentlich nicht auftreten. Wäre ein bibliothekarisches Problem.

@@ -4,13 +4,26 @@
 # @version   1.0
 #
 
-from flask import Flask
+from flask import Flask, request
+from flask_babel import Babel
 from theapp.logic.requestform import requestform
 
 app = Flask(__name__)
 app.config.from_pyfile("config.py")
+app.config['BABEL_DEFAULT_LOCALE'] = 'de'
 
 app.register_blueprint(requestform)
+
+def get_locale():
+    if request.form.get('language') and request.form.get('language') in ['de', 'en']:
+        return request.form.get('language')
+    
+    if request.args.get('lng') and request.args.get('lng') in ['de', 'en']:
+        return request.args.get('lng')
+    
+    return 'de'
+
+babel = Babel(app, locale_selector=get_locale)
 
 #
 # Prepare Logging

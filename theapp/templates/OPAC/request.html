@@ -6,19 +6,19 @@
 {% block form %}
     <table width="100%" border="0" cellpadding="3" cellspacing="0" span class="top1">
         <tr>
-            <td width="114px" bgcolor="#cccccc" valign="top" align="center">&nbsp;<br/><a href="javascript:window.close();">Fenster schlie&szlig;en</a><br/>________________</td>
+            <td width="114px" bgcolor="#cccccc" valign="top" align="center">&nbsp;<br/><a href="javascript:window.close();">{{ _("Fenster schlie&szlig;en") }}</a><br/>________________</td>
             <td>&nbsp;</td>
             <td valign="top">
                 <fieldset class="input">
                     {% if request %}
-                        <legend>Bestandsanfrage: {{ request["id"] }}</legend>
+                        <legend>{{ _("Bestandsanfrage") }}: {{ request["id"] }}</legend>
                         <h1></h1>
-                        <p><b>Bestellter Titel:</b></p>
+                        <p><b>{{ _("Bestellter Titel") }}:</b></p>
                         <p>{{ request["instance"]["title"] }}</p>
                         <p>{{ request["item"]["chronology"] }}</p>
-                        <p><b>Benutzer:</b></p>
+                        <p><b>{{ _("Benutzer") }}:</b></p>
                         <p>{{ request["requester"]["lastName"] }}, {{ request["requester"]["firstName"] }} (Barcode {{ request["requester"]["barcode"] }})</p>
-                        <p><b>Ihr Standort für die Abholung:</b></p>
+                        <p><b>{{ _("Ihr Standort für die Abholung") }}:</b></p>
                         <p>{{ request["pickupServicePoint"]["discoveryDisplayName"] }}</p>
                         <p></p>
                     {% endif %}

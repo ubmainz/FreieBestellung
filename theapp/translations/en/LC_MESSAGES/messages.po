@@ -1,0 +1,374 @@
+# English translations for FreieBestellung (request-form).
+# Copyright (C) 2024 Johannes Gutenberg-Universität Mainz
+# This file is distributed under the same license as the FreieBestellung
+# project.
+# Matthias Genzmehr <m.genzmehr@ub.uni-mainz.de>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: FreieBestellung 1.0\n"
+"Report-Msgid-Bugs-To: m.genzmehr@ub.uni-mainz.de\n"
+"POT-Creation-Date: 2024-09-12 11:37+0200\n"
+"PO-Revision-Date: 2024-09-11 16:05+0200\n"
+"Last-Translator: Matthias Genzmehr <m.genzmehr@ub.uni-mainz.de>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.16.0\n"
+
+#: templates/HDS2/base.html:14 templates/OPAC/base.html:7
+#: templates/RAW/base.html:7
+msgid "Leihschein"
+msgstr "Loan certificate"
+
+#: templates/HDS2/base.html:121 templates/OPAC/base.html:19
+msgid "Freie Bestellung: Elektronischer Leihschein für Zeitschriften"
+msgstr "Free order: Electronic order of journals"
+
+#: templates/HDS2/base.html:137 templates/OPAC/servicepoints.html:16
+#: templates/RAW/servicepoints.html:11
+msgid "choose_pickup_location"
+msgstr "Please choose a pick-up counter."
+
+#: templates/HDS2/base.html:161
+msgid "Freie Bestellung"
+msgstr "Free order"
+
+#: templates/HDS2/errors.html:13 templates/OPAC/errors.html:14
+#: templates/RAW/errors.html:9
+msgid "hrid_exception_head"
+msgstr "HRID Error"
+
+#: templates/HDS2/errors.html:18 templates/OPAC/errors.html:16
+#: templates/RAW/errors.html:11
+msgid "hrid_exception_message"
+msgstr "The record id format is invalid"
+
+#: templates/HDS2/errors.html:24 templates/OPAC/errors.html:19
+#: templates/RAW/errors.html:14
+msgid "env_exception_head"
+msgstr "Environment Error"
+
+#: templates/HDS2/errors.html:29 templates/OPAC/errors.html:21
+#: templates/RAW/errors.html:16
+msgid "env_exception_message_1"
+msgstr "The environment variable"
+
+#: templates/HDS2/errors.html:29 templates/OPAC/errors.html:21
+#: templates/RAW/errors.html:16
+msgid "env_exception_message_2"
+msgstr "is not set."
+
+#: templates/HDS2/errors.html:35 templates/OPAC/errors.html:24
+#: templates/RAW/errors.html:19
+msgid "exsysid_exception_head"
+msgstr "System ID Error"
+
+#: templates/HDS2/errors.html:40 templates/OPAC/errors.html:26
+#: templates/RAW/errors.html:21
+msgid "exsysid_exception_message"
+msgstr "The external system id format is invalid"
+
+#: templates/HDS2/errors.html:46 templates/OPAC/errors.html:29
+#: templates/RAW/errors.html:24
+msgid "barcode_exception_head"
+msgstr "Barcode Error"
+
+#: templates/HDS2/errors.html:51 templates/OPAC/errors.html:31
+#: templates/RAW/errors.html:26
+msgid "barcode_exception_message"
+msgstr "The barcode format is invalid"
+
+#: templates/HDS2/errors.html:57 templates/OPAC/errors.html:34
+#: templates/RAW/errors.html:29
+msgid "session_exception_head"
+msgstr "Session Error"
+
+#: templates/HDS2/errors.html:62 templates/OPAC/errors.html:36
+#: templates/RAW/errors.html:31
+msgid "session_exception_message"
+msgstr "A technical problem occured!"
+
+#: templates/HDS2/errors.html:68 templates/OPAC/errors.html:39
+#: templates/RAW/errors.html:34
+msgid "notfound_exception_head"
+msgstr "NotFound Error"
+
+#: templates/HDS2/errors.html:73 templates/OPAC/errors.html:41
+#: templates/RAW/errors.html:36
+msgid "notfound_exception_message"
+msgstr "The library system doesn't contain the requested object"
+
+#: templates/HDS2/errors.html:80 templates/OPAC/errors.html:44
+#: templates/RAW/errors.html:39
+msgid "servicepoint_exception_head"
+msgstr "ServicePoint Error"
+
+#: templates/HDS2/errors.html:85 templates/OPAC/errors.html:46
+#: templates/RAW/errors.html:41
+msgid "servicepoint_exception_message"
+msgstr "No pick-up counter found. Request not possible."
+
+#: templates/HDS2/errors.html:91 templates/OPAC/errors.html:49
+#: templates/RAW/errors.html:44
+msgid "invalid_data_exception_head"
+msgstr "Invalid data"
+
+#: templates/HDS2/errors.html:96 templates/OPAC/errors.html:50
+#: templates/RAW/errors.html:45
+msgid "invalid_data_exception_message"
+msgstr "Trying to send invalid data."
+
+#: templates/HDS2/errors.html:102 templates/OPAC/errors.html:52
+#: templates/RAW/errors.html:47
+msgid "message"
+msgstr "Message"
+
+#: templates/HDS2/errors.html:107 templates/OPAC/errors.html:54
+#: templates/RAW/errors.html:49
+msgid "one_request_only"
+msgstr "You can send this request only once."
+
+#: templates/HDS2/errors.html:109
+msgid "Error"
+msgstr "Error"
+
+#: templates/HDS2/errors.html:115 templates/HDS2/errors.html:130
+#: templates/OPAC/errors.html:59 templates/OPAC/errors.html:71
+#: templates/RAW/errors.html:54 templates/RAW/errors.html:66
+msgid "http_exception_head"
+msgstr "HTTP Error"
+
+#: templates/HDS2/errors.html:120 templates/OPAC/errors.html:61
+#: templates/RAW/errors.html:56
+msgid "http_400_message"
+msgstr "The library system can't handle your request."
+
+#: templates/HDS2/errors.html:122 templates/OPAC/errors.html:63
+#: templates/RAW/errors.html:58
+msgid "http_401_message"
+msgstr "Access to the library system denied."
+
+#: templates/HDS2/errors.html:124 templates/OPAC/errors.html:65
+#: templates/RAW/errors.html:60
+msgid "http_403_message"
+msgstr "Access to the library system denied."
+
+#: templates/HDS2/errors.html:126 templates/OPAC/errors.html:67
+#: templates/RAW/errors.html:62
+msgid "http_404_message"
+msgstr "No result for your request."
+
+#: templates/HDS2/errors.html:128 templates/OPAC/errors.html:69
+#: templates/RAW/errors.html:64
+msgid "http_500_message"
+msgstr "Error in the library system."
+
+#: templates/HDS2/errors.html:130 templates/OPAC/errors.html:71
+#: templates/RAW/errors.html:66
+msgid "http_exception_message"
+msgstr "A problem with the connection to the library system occured."
+
+#: templates/HDS2/errors.html:136 templates/OPAC/errors.html:74
+#: templates/RAW/errors.html:69
+msgid "connection_exception_head"
+msgstr "Connection Error"
+
+#: templates/HDS2/errors.html:141 templates/OPAC/errors.html:75
+#: templates/RAW/errors.html:70
+msgid "connection_exception_message"
+msgstr "A connection to the library system can't be established."
+
+#: templates/HDS2/errors.html:147 templates/OPAC/errors.html:77
+#: templates/RAW/errors.html:72
+msgid "Fehler"
+msgstr "Error"
+
+#: templates/HDS2/errors.html:152 templates/OPAC/errors.html:78
+#: templates/RAW/errors.html:73
+msgid "error_occured"
+msgstr "An error occured."
+
+#: templates/HDS2/errors.html:158 templates/OPAC/errors.html:80
+#: templates/RAW/errors.html:75
+msgid "Else"
+msgstr "Else"
+
+#: templates/HDS2/errors.html:163 templates/OPAC/errors.html:81
+#: templates/RAW/errors.html:76
+msgid "Hier wohnt Else."
+msgstr "Else is living here."
+
+#: templates/HDS2/errors.html:172 templates/OPAC/errors.html:83
+#: templates/RAW/errors.html:78
+msgid "contact_your_library"
+msgstr "Please contact your library"
+
+#: templates/HDS2/errors.html:172 templates/OPAC/errors.html:84
+#: templates/RAW/errors.html:79
+msgid "ub_mail"
+msgstr "info@ub.uni-mainz.de"
+
+#: templates/HDS2/item.html:13 templates/OPAC/item.html:30
+#: templates/RAW/item.html:25
+msgid "Zeitschrift"
+msgstr "Journal"
+
+#: templates/HDS2/item.html:21 templates/OPAC/item.html:32
+#: templates/RAW/item.html:27
+msgid "Titel"
+msgstr "Title"
+
+#: templates/HDS2/item.html:32 templates/OPAC/item.html:33
+#: templates/RAW/item.html:28
+msgid "Signatur"
+msgstr "Call number"
+
+#: templates/HDS2/item.html:43 templates/OPAC/item.html:34
+#: templates/RAW/item.html:29
+msgid "Materialtyp"
+msgstr "Material type"
+
+#: templates/HDS2/item.html:54 templates/OPAC/item.html:35
+#: templates/RAW/item.html:30
+msgid "Ausleihcode"
+msgstr "Loan type"
+
+#: templates/HDS2/item.html:65 templates/OPAC/item.html:36
+#: templates/RAW/item.html:31
+msgid "Bestand"
+msgstr "Holding"
+
+#: templates/HDS2/item.html:77 templates/HDS2/item.html:84
+#: templates/HDS2/item.html:91 templates/OPAC/item.html:39
+#: templates/OPAC/item.html:41 templates/OPAC/item.html:43
+#: templates/RAW/item.html:34 templates/RAW/item.html:36
+#: templates/RAW/item.html:38
+msgid "Jahrgang"
+msgstr "Year"
+
+#: templates/HDS2/item.html:104 templates/HDS2/item.html:111
+#: templates/HDS2/item.html:118 templates/OPAC/item.html:47
+#: templates/OPAC/item.html:49 templates/OPAC/item.html:51
+#: templates/RAW/item.html:42 templates/RAW/item.html:44
+#: templates/RAW/item.html:46
+msgid "Band"
+msgstr "Volume"
+
+#: templates/HDS2/item.html:131 templates/HDS2/item.html:138
+#: templates/HDS2/item.html:145 templates/OPAC/item.html:55
+#: templates/OPAC/item.html:57 templates/OPAC/item.html:59
+#: templates/RAW/item.html:50 templates/RAW/item.html:52
+#: templates/RAW/item.html:54
+msgid "Seitenzahl"
+msgstr "Page"
+
+#: templates/HDS2/item.html:157 templates/HDS2/request.html:21
+#: templates/HDS2/servicepoints.html:36 templates/OPAC/item.html:21
+#: templates/OPAC/request.html:19 templates/OPAC/servicepoints.html:21
+#: templates/RAW/item.html:16 templates/RAW/request.html:14
+#: templates/RAW/servicepoints.html:16
+msgid "Benutzer"
+msgstr "User"
+
+#: templates/HDS2/item.html:165 templates/HDS2/servicepoints.html:44
+#: templates/OPAC/item.html:24 templates/OPAC/servicepoints.html:24
+#: templates/RAW/item.html:19 templates/RAW/servicepoints.html:19
+msgid "Barcode"
+msgstr "Barcode"
+
+#: templates/HDS2/item.html:176 templates/HDS2/servicepoints.html:55
+#: templates/OPAC/item.html:25 templates/OPAC/servicepoints.html:25
+#: templates/RAW/item.html:20 templates/RAW/servicepoints.html:20
+msgid "Name"
+msgstr "Name"
+
+#: templates/HDS2/item.html:187 templates/HDS2/servicepoints.html:66
+#: templates/OPAC/item.html:26 templates/OPAC/servicepoints.html:26
+#: templates/RAW/item.html:21 templates/RAW/servicepoints.html:21
+msgid "E-Mail"
+msgstr "eMail"
+
+#: templates/HDS2/item.html:235
+msgid "Weiter"
+msgstr "Next"
+
+#: templates/HDS2/item.html:237
+msgid "Formular zurücksetzen"
+msgstr "Reset form"
+
+#: templates/HDS2/request.html:12
+msgid "Ihre Bestandsanfrage (wurde gesendet)"
+msgstr "Your request (has been sent)"
+
+#: templates/HDS2/request.html:32 templates/OPAC/request.html:16
+#: templates/RAW/request.html:11
+msgid "Bestellter Titel"
+msgstr "Journal"
+
+#: templates/HDS2/request.html:44 templates/OPAC/request.html:21
+#: templates/RAW/request.html:16
+msgid "Ihr Standort für die Abholung"
+msgstr "Pick-up location"
+
+#: templates/HDS2/request.html:55
+msgid "Zum Benutzerkonto"
+msgstr "Your account"
+
+#: templates/HDS2/servicepoints.html:13
+msgid "Theke f&uuml;r Abholung"
+msgstr "Pick-up counter"
+
+#: templates/HDS2/servicepoints.html:25 templates/HDS2/servicepoints.html:30
+#: templates/OPAC/servicepoints.html:39 templates/OPAC/servicepoints.html:44
+#: templates/RAW/servicepoints.html:34 templates/RAW/servicepoints.html:39
+msgid "Keine Theken verfügbar."
+msgstr "No counter available"
+
+#: templates/HDS2/servicepoints.html:94 templates/OPAC/servicepoints.html:56
+#: templates/RAW/servicepoints.html:51
+msgid "Bestandsanfrage senden"
+msgstr "Send request"
+
+#: templates/OPAC/errors.html:9 templates/OPAC/item.html:10
+#: templates/OPAC/request.html:9 templates/OPAC/servicepoints.html:10
+msgid "Fenster schlie&szlig;en"
+msgstr "Close window"
+
+#: templates/OPAC/errors.html:56 templates/RAW/errors.html:51
+msgid "error"
+msgstr "error"
+
+#: templates/OPAC/item.html:16 templates/RAW/item.html:11
+msgid "bad_input_hint"
+msgstr "Invalid input fields. Please correct your input data."
+
+#: templates/OPAC/item.html:69 templates/RAW/item.html:64
+msgid "Formular zur&uuml;cksetzen"
+msgstr "Reset form"
+
+#: templates/OPAC/item.html:70 templates/RAW/item.html:65
+msgid "weiter >>"
+msgstr "next >>"
+
+#: templates/OPAC/item.html:72 templates/OPAC/servicepoints.html:58
+#: templates/RAW/item.html:67 templates/RAW/servicepoints.html:53
+msgid "duty_field_hint"
+msgstr "Fields marked with * needs to be filled."
+
+#: templates/OPAC/item.html:75 templates/OPAC/servicepoints.html:61
+#: templates/RAW/item.html:69 templates/RAW/servicepoints.html:56
+msgid "pickup_hint"
+msgstr ""
+"<strong>Note:</strong> Your request appears in your user account when "
+"it's available in the <strong>pick-up shelv</strong>. Requests to BB UM "
+"(Universitätsmedizin) or to BB MIN (Mathematik, Informatik, "
+"Naturwissenschaften) are available <strong>one day later</strong>."
+
+#: templates/OPAC/request.html:14 templates/RAW/request.html:9
+msgid "Bestandsanfrage"
+msgstr "Request"
+

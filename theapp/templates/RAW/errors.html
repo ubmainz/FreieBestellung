@@ -6,76 +6,76 @@
 {% block form %}
     <fieldset class="">
         {% if exception == "HRID" %}
-            <legend>HRID Error: </legend>
+            <legend>{{ _("hrid_exception_head") }}: </legend>
             {% if error %}
-                <h3>Die Datensatz ID hat kein gültiges Format: {{ error["hrid"] }}</h3>
+                <h3>{{ _("hrid_exception_message") }}: {{ error["hrid"] }}</h3>
             {% endif %}
         {% elif exception == "Environment" %}
-            <legend>Environment Error: </legend>
+            <legend>{{ _("env_exception_head") }}: </legend>
             {% if error %}
-                <h3>Die Umgebungsvariable {{ error["envName"] }} ist nicht gesetzt.</h3>
+                <h3>{{ _("env_exception_message_1") }} {{ error["envName"] }} {{ _("env_exception_message_2") }}</h3>
             {% endif %}
         {% elif exception == "ExternalSystemId" %}
-            <legend>System ID Error: </legend>
+            <legend>{{ _("exsysid_exception_head") }}: </legend>
             {% if error %}
-                <h3>Die externe System ID hat kein gültiges Format: {{ error["externalSystemId"] }}</h3>
+                <h3>{{ _("exsysid_exception_message") }}: {{ error["externalSystemId"] }}</h3>
             {% endif %}
         {% elif exception == "Barcode" %}
-            <legend>Barcode Error: </legend>
+            <legend>{{ _("barcode_exception_head") }}: </legend>
             {% if error %}
-                <h3>Der Barcode hat kein gültiges Format: {{ error["barcode"] }}</h3>
+                <h3>{{ _("barcode_exception_message") }}: {{ error["barcode"] }}</h3>
             {% endif %}
         {% elif exception == "UUID" %}
-            <legend>Session Error: </legend>
+            <legend>{{ _("session_exception_head") }}: </legend>
             {% if error %}
-                <h3>Es ist ein technisches Problem aufgetreten!</h3>
+                <h3>{{ _("session_exception_message") }}</h3>
             {% endif %}
         {% elif exception == "NotFound" %}
-            <legend>NotFound Error: </legend>
+            <legend>{{ _("notfound_exception_head") }}: </legend>
             {% if error %}
-                <h3>Das Bibliothekssystem enthält das gesuchte Objekt nicht: {{ error["type"] }}: {{ error["id"] }}</h3>
+                <h3>{{ _("notfound_exception_message") }}: {{ error["type"] }}: {{ error["id"] }}</h3>
             {% endif %}
         {% elif exception == "ServicePoint" %}
-            <legend>ServicePoint Error: </legend>
+            <legend>{{ _("servicepoint_exception_head") }}: </legend>
             {% if error %}
-                <h3>Bestellung nicht möglich. Es wurde keine Abholtheke gefunden.</h3>
+                <h3>{{ _("servicepoint_exception_message") }}</h3>
             {% endif %}
         {% elif exception == "Item" or exception == "Request" %}
-            <legend>Ungültige Daten: </legend>
-                <h3>Das System versucht ungültige Daten zu senden.</h3>
+            <legend>{{ _("invalid_data_exception_head") }}: </legend>
+                <h3>{{ _("invalid_data_exception_message") }}</h3>
         {% elif exception == "FOLIOError" %}
-            <legend>Meldung: </legend>
+            <legend>{{ _("message") }}: </legend>
             {% if error and error["code"] == "ITEM_ALREADY_REQUESTED" %}
-                <h3>Sie können die Bestandsanfrage nur einmal stellen.</h3>
+                <h3>{{ _("one_request_only") }}</h3>
             {% elif error and error["code"] == "NO_CODE" and error["message"] %}
-                <h3>Error: {{ error["message"] }}</h3>
+                <h3>{{ _("error") }}: {{ error["message"] }}</h3>
             {% endif %}
         {% elif exception == "HTTP" %}
-            <legend>HTTP Error: </legend>
+            <legend>{{ _("http_exception_head") }}: </legend>
                 {% if error["status_code"] == 400 %}
-                    <h3>HTTP 400 (Bad Request) - Das Bibliothekssystem kann die Anfrage nicht verarbeiten. :/ </h3>
+                    <h3>HTTP 400 (Bad Request) - {{ _("http_400_message") }} :/</h3>
                 {% elif error["status_code"] == 401 %}
-                    <h3>HTTP 401 (Unauthorized) - Zugriff auf das Bibliothekssystem nicht möglich. :/ </h3>
+                    <h3>HTTP 401 (Unauthorized) - {{ _("http_401_message") }} :/</h3>
                 {% elif error["status_code"] == 403 %}
-                    <h3>HTTP 403 (Forbidden) - Zugriff auf das Bibliothekssystem nicht möglich. :/ </h3>
+                    <h3>HTTP 403 (Forbidden) - {{ _("http_403_message") }} :/</h3>
                 {% elif error["status_code"] == 404 %}
-                    <h3>HTTP 404 (Not Found) - Kein Ergebnis für die Anfrage ans Bibliothekssystem. :/</h3>
+                    <h3>HTTP 404 (Not Found) - {{ _("http_404_message") }} :/</h3>
                 {% elif error["status_code"] == 500 %}
-                    <h3>HTTP 500 (Internal Server Error) - Fehler im Bibliothekssystem. :/</h3>
+                    <h3>HTTP 500 (Internal Server Error) - {{ _("http_500_message") }} :/</h3>
                 {% else %}
-                    <h3>HTTP Error: Es gibt ein Problem mit der Verbindung zum Bibliothekssystem. :/</h3>
+                    <h3>{{ _("http_exception_head") }}: {{ _("http_exception_message") }} :/</h3>
                 {% endif %}
         {% elif exception == "Connection" %}
-            <legend>Verbindungsfehler: </legend>
-            <h3>Anmeldung am Bibliothekssystem fehlgeschlagen.</h3>
+            <legend>{{ _("connection_exception_head") }}: </legend>
+            <h3>{{ _("connection_exception_message") }}</h3>
         {% elif exception == "Base" %}
-            <legend>Fehler: </legend>
-            <h3>Es ist ein Fehler aufgetreten.</h3>
+            <legend>{{ _("Fehler") }}: </legend>
+            <h3>{{ _("error_occured") }}</h3>
         {% else %}
-            <legend>Else: </legend>
-            <h3>Hier wohnt Else.</h3>
+            <legend>{{ _("Else") }}: </legend>
+            <h3>{{ _("Hier wohnt Else.") }}</h3>
         {% endif %}
-        <p>Bitte wenden Sie sich an die Zentralbibliothek:</p>
-        <p>info@ub.uni-mainz.de</p>
+        <p>{{ _("contact_your_library") }}:</p>
+        <p>{{ _("ub_mail") }}</p>
     </fieldset>
 {% endblock %}

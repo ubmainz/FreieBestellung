@@ -10,7 +10,7 @@
 
             <div class="tab-content">
 
-                <h2 class = "beforeHeadingUpgrade" tabindex = "1">Theke f&uuml;r Abholung</h2>
+                <h2 class = "beforeHeadingUpgrade" tabindex = "1">{{ _("Theke f&uuml;r Abholung") }}</h2>
 
                 <div class="grid">
                     <div class="adv-group group well row" id="group1">
@@ -22,18 +22,18 @@
                                 </div>
                             {% else %}
                                 <div class="col-sm-12" style="margin:0.5em auto 0.5em auto;">
-                                    <span class="form-text">Keine Theken verfügbar.</span>
+                                    <span class="form-text">{{ _("Keine Theken verfügbar.") }}</span>
                                 </div>
                             {% endfor %}
                         {% else %}
                             <div class="col-sm-12" style="margin:0.5em auto 0.5em auto;">
-                                <span class="form-text">Keine Theken verfügbar.</span>
+                                <span class="form-text">{{ _("Keine Theken verfügbar.") }}/span>
                             </div>
                         {% endif %}
                     </div>
                 </div>
 
-                <h2 class = "beforeHeadingUpgrade" tabindex = "0">Benutzer</h2>
+                <h2 class = "beforeHeadingUpgrade" tabindex = "0">{{ _("Benutzer") }}</h2>
                 
                 <div class="adv-group group well row" id="group0">
 
@@ -41,7 +41,7 @@
                     <div class="col-sm-12 request-form-margin">
                         <div class="row row-cols-2">
                             <div class="col-sm-2">
-                                <label class="form-label">Barcode:</label>
+                                <label class="form-label">{{ _("Barcode") }}:</label>
                             </div>
                             <div class="col-sm-10">
                                 <span class="form-text">{% if user %}{{ user['barcode'] }}{% endif %}</span>
@@ -52,7 +52,7 @@
                     <div class="col-sm-12 request-form-margin">
                         <div class="row row-cols-2">
                             <div class="col-sm-2">
-                                <label class="form-label">Name:</label>
+                                <label class="form-label">{{ _("Name") }}:</label>
                             </div>
                             <div class="col-sm-10">
                                 <span class="form-text">{% if user %}{{ user['personal']['lastName'] }}{% endif %}, {% if user %}{{ user['personal']['firstName'] }}{% endif %}</span>
@@ -63,7 +63,7 @@
                     <div class="col-sm-12 request-form-margin">
                         <div class="row row-cols-2">
                             <div class="col-sm-2">
-                                <label class="form-label">E-Mail:</label>
+                                <label class="form-label">{{ _("E-Mail") }}:</label>
                             </div>
                             <div class="col-sm-10">
                                 <span class="form-text">{% if user %}{{ user['personal']['email'] }}{% endif %}</span>
@@ -82,6 +82,7 @@
                         <input type="hidden" name="id" value="{% if item %}{{ item.id }}{% endif %}" />
                         <input type="hidden" name="barcode" value="{% if user %}{{ user['barcode'] }}{% endif %}" />
                         <input type="hidden" name="looknfeel" value="{% if looknfeel %}{{ looknfeel }}{% endif %}" />
+                        <input type="hidden" name="language" value="{% if language %}{{ language }}{% endif %}" />
                         <input type="hidden" name="session" value="{% if session %}{{ session }}{% endif %}" />
                     </div>
                 </div>
@@ -90,7 +91,7 @@
                 <div class="pull-right">
                     <div class="btn-group" role="group">
                         <button class="btn btn-primary pull-right flip" type="submit">
-                            Bestandsanfrage senden<span class="hds-icon-right-circled2"></span></button>
+                            {{ _("Bestandsanfrage senden") }}<span class="hds-icon-right-circled2"></span></button>
                     </div>
                 </div>
             </div>

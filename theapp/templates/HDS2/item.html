@@ -10,7 +10,7 @@
 
             <div class="tab-content">
 
-                <h2 class = "beforeHeadingUpgrade" tabindex = "1">Zeitschrift</h2>
+                <h2 class = "beforeHeadingUpgrade" tabindex = "1">{{ _("Zeitschrift") }}</h2>
 
                 <div class="grid">
                     <div class="adv-group group well row" id="group1">
@@ -18,7 +18,7 @@
                         <div class="col-sm-12 request-form-margin">
                             <div class="row row-cols-2">
                                 <div class="col-sm-2">
-                                    <label class="form-label">Titel:</label>
+                                    <label class="form-label">{{ _("Titel") }}:</label>
                                 </div>
                                 <div class="col-sm-10">
                                     <span class="form-text">{% if item %}{{ item['title'] }}{% endif %}</span>
@@ -29,7 +29,7 @@
                         <div class="col-sm-12 request-form-margin">
                             <div class="row row-cols-2">
                                 <div class="col-sm-2">
-                                    <label class="form-label">Signatur:</label>
+                                    <label class="form-label">{{ _("Signatur") }}:</label>
                                 </div>
                                 <div class="col-sm-10">
                                     <span class="form-text">{% if item %}{{ item['callNumber'] }}{% endif %}</span>
@@ -40,7 +40,7 @@
                         <div class="col-sm-12 request-form-margin">
                             <div class="row row-cols-2">
                                 <div class="col-sm-2">
-                                    <label class="form-label">Materialtyp:</label>
+                                    <label class="form-label">{{ _("Materialtyp") }}:</label>
                                 </div>
                                 <div class="col-sm-10">
                                     <span class="form-text">{% if item %}{{ item['materialType']['name'] }}{% endif %}</span>
@@ -51,7 +51,7 @@
                         <div class="col-sm-12 request-form-margin">
                             <div class="row row-cols-2">
                                 <div class="col-sm-2">
-                                    <label class="form-label">Ausleihcode:</label>
+                                    <label class="form-label">{{ _("Ausleihcode") }}:</label>
                                 </div>
                                 <div class="col-sm-10">
                                     <span class="form-text">{% if item %}{{ item['permanentLoanType']['name'] }}{% endif %}</span>
@@ -62,7 +62,7 @@
                         <div class="col-sm-12 request-form-margin">
                             <div class="row row-cols-2">
                                 <div class="col-sm-2">
-                                    <label class="form-label">Bestand:</label>
+                                    <label class="form-label">{{ _("Bestand") }}:</label>
                                 </div>
                                 <div class="col-sm-10">
                                     <span class="form-text">{% if item %}{{ item['yearCaption'] }}{% endif %}</span>
@@ -74,21 +74,21 @@
                             <div class="row row-cols-2">
                                 {% if errors and errors['jahrgang'] %}
                                     <div class="col-sm-2">
-                                        <label class="control-label" for="jahrgangID" style="color:red">Jahrgang <sup>*</sup>:</label>
+                                        <label class="control-label" for="jahrgangID" style="color:red">{{ _("Jahrgang") }}<sup>*</sup>:</label>
                                     </div>
                                     <div class="col-sm-10">
                                         <input name="jahrgang" id="jahrgangID" class="form-control" type="text" maxlength="4" pattern="[1-2]{1}[0-9]{3}" placeholder="z.B.: 2001" aria-label="Search Terms" value="{{ errors['jahrgang'] }}" autofocus required />
                                     </div>
                                 {% elif values and values['jahrgang'] %}
                                     <div class="col-sm-2">
-                                        <label class="control-label" for="jahrgangID">Jahrgang <sup>*</sup>:</label>
+                                        <label class="control-label" for="jahrgangID">{{ _("Jahrgang") }}<sup>*</sup>:</label>
                                     </div>
                                     <div class="col-sm-10">
                                         <input name="jahrgang" id="jahrgangID" class="form-control" type="text" maxlength="4" pattern="[1-2]{1}[0-9]{3}" placeholder="z.B.: 2001" aria-label="Search Terms" value="{{ values['jahrgang'] }}" autofocus required />
                                     </div>
                                 {% else %}
                                     <div class="col-sm-2">
-                                        <label class="control-label" for="jahrgangID">Jahrgang <sup>*</sup>:</label>
+                                        <label class="control-label" for="jahrgangID">{{ _("Jahrgang") }}<sup>*</sup>:</label>
                                     </div>
                                     <div class="col-sm-10">
                                         <input name="jahrgang" id="jahrgangID" class="form-control" type="text" maxlength="4" pattern="[1-2]{1}[0-9]{3}" placeholder="z.B.: 2001" aria-label="Search Terms" value="" autofocus required />
@@ -101,21 +101,21 @@
                             <div class="row row-cols-2">
                                 {% if errors and errors['band'] %}
                                     <div class="col-sm-2">
-                                        <label class="control-label" for="bandID" style="color:red">Band:</label>
+                                        <label class="control-label" for="bandID" style="color:red">{{ _("Band") }}:</label>
                                     </div>
                                     <div class="col-sm-10">
                                         <input name="band" id="bandID" class="form-control" type="text" maxlength="40" placeholder="z.B.: 3" aria-label="Search Terms" value="{{ errors['band'] }}" />
                                     </div>
                                 {% elif values and values['band'] %}
                                     <div class="col-sm-2">
-                                        <label class="control-label" for="bandID">Band:</label>
+                                        <label class="control-label" for="bandID">{{ _("Band") }}:</label>
                                     </div>
                                     <div class="col-sm-10">
                                         <input name="band" id="bandID" class="form-control" type="text" maxlength="40" placeholder="z.B.: 3" aria-label="Search Terms" value="{{ values['band'] }}" />
                                     </div>
                                 {% else %}
                                     <div class="col-sm-2">
-                                        <label class="control-label" for="bandID">Band:</label>
+                                        <label class="control-label" for="bandID">{{ _("Band") }}:</label>
                                     </div>
                                     <div class="col-sm-10">
                                         <input name="band" id="bandID" class="form-control" type="text" maxlength="40" placeholder="z.B.: 3" aria-label="Search Terms" value="" />
@@ -128,21 +128,21 @@
                             <div class="row row-cols-2">
                                 {% if errors and errors['seitenzahl'] %}
                                     <div class="col-sm-2">
-                                        <label class="control-label" for="seitenzahlID" style="color:red">Seitenzahl:</label>
+                                        <label class="control-label" for="seitenzahlID" style="color:red">{{ _("Seitenzahl") }}:</label>
                                     </div>
                                     <div class="col-sm-10">
                                         <input name="seitenzahl" id="seitenzahlID" class="form-control" type="text" maxlength="40" placeholder="z.B.: S. 11-19 / 4.3.2001" aria-label="Search Terms" value="{{ errors['seitenzahl'] }}" />
                                     </div>
                                 {% elif values and values['seitenzahl'] %}
                                     <div class="col-sm-2">
-                                        <label class="control-label" for="seitenzahlID">Seitenzahl:</label>
+                                        <label class="control-label" for="seitenzahlID">{{ _("Seitenzahl") }}:</label>
                                     </div>
                                     <div class="col-sm-10">
                                         <input name="seitenzahl" id="seitenzahlID" class="form-control" type="text" maxlength="40" placeholder="z.B.: S. 11-19 / 4.3.2001" aria-label="Search Terms" value="{{ values['seitenzahl'] }}" />
                                     </div>
                                 {% else %}
                                     <div class="col-sm-2">
-                                        <label class="control-label" for="seitenzahlID">Seitenzahl:</label>
+                                        <label class="control-label" for="seitenzahlID">{{ _("Seitenzahl") }}:</label>
                                     </div>
                                     <div class="col-sm-10">
                                         <input name="seitenzahl" id="seitenzahlID" class="form-control" type="text" maxlength="40" placeholder="z.B.: S. 11-19 / 4.3.2001" aria-label="Search Terms" value="" />
@@ -154,7 +154,7 @@
                     </div>
                 </div>
 
-                <h2 class = "beforeHeadingUpgrade" tabindex = "0">Benutzer</h2>
+                <h2 class = "beforeHeadingUpgrade" tabindex = "0">{{ _("Benutzer") }}</h2>
                 
                 <div class="adv-group group well row" id="group0">
 
@@ -162,7 +162,7 @@
                     <div class="col-sm-12 request-form-margin">
                         <div class="row row-cols-2">
                             <div class="col-sm-2">
-                                <label class="form-label">Barcode:</label>
+                                <label class="form-label">{{ _("Barcode") }}:</label>
                             </div>
                             <div class="col-sm-10">
                                 <span class="form-text">{% if user %}{{ user['barcode'] }}{% endif %}</span>
@@ -173,7 +173,7 @@
                     <div class="col-sm-12 request-form-margin">
                         <div class="row row-cols-2">
                             <div class="col-sm-2">
-                                <label class="form-label">Name:</label>
+                                <label class="form-label">{{ _("Name") }}:</label>
                             </div>
                             <div class="col-sm-10">
                                 <span class="form-text">{% if user %}{{ user['personal']['lastName'] }}{% endif %}, {% if user %}{{ user['personal']['firstName'] }}{% endif %}</span>
@@ -184,7 +184,7 @@
                     <div class="col-sm-12 request-form-margin">
                         <div class="row row-cols-2">
                             <div class="col-sm-2">
-                                <label class="form-label">E-Mail:</label>
+                                <label class="form-label">{{ _("E-Mail") }}:</label>
                             </div>
                             <div class="col-sm-10">
                                 <span class="form-text">{% if user %}{{ user['personal']['email'] }}{% endif %}</span>
@@ -223,6 +223,7 @@
                         <input type="hidden" name="id" value="{% if item %}{{ item.id }}{% endif %}" />
                         <input type="hidden" name="barcode" value="{% if user %}{{ user['barcode'] }}{% endif %}" />
                         <input type="hidden" name="looknfeel" value="{% if looknfeel %}{{ looknfeel }}{% endif %}" />
+                        <input type="hidden" name="language" value="{% if language %}{{ language }}{% endif %}" />
                         <input type="hidden" name="session" value="{% if session %}{{ session }}{% endif %}" />
                     </div>
                 </div>
@@ -231,9 +232,9 @@
                 <div class="pull-right">
                     <div class="btn-group" role="group">
                         <button class="btn btn-primary pull-right flip" type="submit">
-                            Weiter<span class="hds-icon-right-circled2"></span></button>
+                            {{ _("Weiter") }}<span class="hds-icon-right-circled2"></span></button>
                         <button class="btn btn-default pull-right clear-btn" type="reset">
-                            Formular zurücksetzen<span class="hds-icon-recycle"></span></button>
+                            {{ _("Formular zurücksetzen") }}<span class="hds-icon-recycle"></span></button>
                     </div>
                 </div>
             </div>

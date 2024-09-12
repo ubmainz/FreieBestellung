@@ -9,7 +9,7 @@
 
         <div class="tab-content">
 
-            <h2 class = "beforeHeadingUpgrade" tabindex = "0">Ihre Bestandsanfrage (wurde gesendet)</h2>
+            <h2 class = "beforeHeadingUpgrade" tabindex = "0">{{ _("Ihre Bestandsanfrage (wurde gesendet)") }}</h2>
 
             <div class="grid">
             <div class="adv-group group well row" id="group1">
@@ -18,7 +18,7 @@
                 <div class="col-sm-12 request-form-margin">
                     <div class="row row-cols-2">
                         <div class="col-sm-3">
-                            <label class="form-label">Benutzer:</label>
+                            <label class="form-label">{{ _("Benutzer") }}:</label>
                         </div>
                         <div class="col-sm-9">
                             <span class="form-text">{{ request["requester"]["lastName"] }}, {{ request["requester"]["firstName"] }} (Barcode {{ request["requester"]["barcode"] }})</span>
@@ -29,7 +29,7 @@
                 <div class="col-sm-12 request-form-margin">
                     <div class="row row-cols-2">
                         <div class="col-sm-3">
-                            <label class="form-label">Bestellter Titel:</label>
+                            <label class="form-label">{{ _("Bestellter Titel") }}:</label>
                         </div>
                         <div class="col-sm-9">
                             <span class="form-text">{{ request["instance"]["title"] }}</span><br/><br/>
@@ -41,7 +41,7 @@
                 <div class="col-sm-12 request-form-margin">
                     <div class="row row-cols-2">
                         <div class="col-sm-3">
-                            <label class="form-label">Ihr Standort für die Abholung:</label>
+                            <label class="form-label">{{ _("Ihr Standort für die Abholung") }}:</label>
                         </div>
                         <div class="col-sm-9">
                             <span class="form-text">{{ request["pickupServicePoint"]["discoveryDisplayName"] }}</span>
@@ -52,7 +52,7 @@
             </div>
             </div>
 
-            <div class="clearfix">{% if config.HDS2_HOLDS_URL %}<a href="{{ config.HDS2_HOLDS_URL }}">Zum Benutzerkonto</a>{% endif %}</div>
+            <div class="clearfix">{% if config.HDS2_HOLDS_URL %}<a href="{{ config.HDS2_HOLDS_URL }}">{{ _("Zum Benutzerkonto") }}</a>{% endif %}</div>
             <div class="clearfix"><br/><br/></div>
 
             <div class="row"></div>

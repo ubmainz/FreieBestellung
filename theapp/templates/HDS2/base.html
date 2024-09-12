@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>Leihschein</title>
+    <title>{{ _("Leihschein") }}</title>
 
     <style media="screen">
         @font-face {
@@ -72,16 +72,17 @@
                                     </button>
                                 </div>
 
-                                {% if localisation and localisation == true %}
+                                {% if item and localisation and localisation == true %}
                                 <div class="collapse navbar-collapse" id="header-collapse">
                                     <ul role="navigation" class="nav navbar-nav navbar-right">
                                         <li class="language dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">DE/EN <b class="caret"></b></a>
                                             <ul class="dropdown-menu">
-                                                <li><!-- ToDO: add language URLs -->
-                                                    <a href="">English</a></li>
-                                                <li class="active">
-                                                    <a href="">Deutsch</a></li>
+                                                <!-- ToDO: add language URLs -->
+                                                {% if language and language == 'en' %}<li class="active">{% else %}<li>{% endif %}
+                                                    <a href="?hrid={{ item['hrid'] }}&lng=en">English</a></li>
+                                                {% if language and language == 'de' %}<li class="active">{% else %}<li>{% endif %}
+                                                    <a href="?hrid={{ item['hrid'] }}&lng=de">Deutsch</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -117,7 +118,7 @@
                                     </a>
                                 </div>      
                                 <span class="searchbox col-xs-12 col-sm-12 col-md-9 col-lg-9">
-                                    <h1>Freie Bestellung: Elektronischer Leihschein für Zeitschriften</h1><br/>
+                                    <h1>{{ _("Freie Bestellung: Elektronischer Leihschein für Zeitschriften") }}</h1><br/>
                                 </span>
                             </div><!-- end row -->
                         </div><!-- end container -->
@@ -128,6 +129,16 @@
         </header>
 
         <div id="main-content" role="main" class="main template-dir-search template-name-advanced" tabindex="-1">
+
+            {% if error %}
+            <div class = "container container-broadcast-message">
+                {% if exception == "ServicePointID" %}
+                <div id="bc-3" class="alert alert-danger">
+                    {{ _("choose_pickup_location") }}
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
         
             <div>
                 <p><button class="btn" style="background-color:transparent; height: 0px; margin: 0; padding: 3px 150px" type="button" data-toggle="collapse" data-target="#search-request-log" aria-expanded="false" aria-controls="search-request-log"></button></p>
@@ -147,7 +158,7 @@
                 <div class="container container-breadcrumb">
                     <ul class="breadcrumb hidden-print">
                         <li><a href="{{ config.HDS2_HOME_URL }}" aria-label="Back to Home"><span class="hds-icon-home"></span></a></li>
-                        <li class="active">Freie Bestellung</li>
+                        <li class="active">{{ _("Freie Bestellung") }}</li>
                     </ul>
                 </div>
             </div>

@@ -4,7 +4,7 @@
 {# @version   1.0 #}
 <html dir="ltr" lang="de_DE" xml:lang="de_DE">
 <head>
-    <title>Leihschein</title>
+    <title>{{ _("Leihschein") }}</title>
     <link rel="stylesheet" href="..{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/static/style.css" media="all" type="text/css" />
     <link rel="icon" href="..{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/static/img/favicon.ico" type="image/vnd.microsoft.icon" />
 </head>
@@ -16,7 +16,7 @@
         
         <tr>
             <td align="left" width="28%"><a href="http://www.ub.uni-mainz.de/" target="_blank"><img src="..{% if config.ENDPOINT %}/{{ config.ENDPOINT }}{% endif %}/static/img/logo_ubmz.png" alt="Universit&auml;t Mainz" name="logo_ubmz" width="142" height="142" border="0" hspace="0" vspace="0" /></a></td>
-            <td width="72%"><span class="ueberschrift">Universit&auml;tsbibliothek: Elektronischer Leihschein f&uuml;r Zeitschriften</span></td>
+            <td width="72%"><span class="ueberschrift">{{ _("Freie Bestellung: Elektronischer Leihschein für Zeitschriften") }}</span></td>
         </tr>
         <tr>
             <td bgcolor="#c1012a" colspan="2">&nbsp;</td>
