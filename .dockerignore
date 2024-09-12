@@ -1,0 +1,4 @@
+__pycache__
+.venv
+theapp/babel.cfg
+theapp/messages.pot
