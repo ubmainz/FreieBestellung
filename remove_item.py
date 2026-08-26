@@ -1,77 +1,113 @@
-#!/usr/bin/python3.9
 #
 # @author    Matthias Genzmehr
-# @copyright 2024 Universitätsbibliothek Mainz
-# @version   1.0
+# @copyright 2026 Universitätsbibliothek Mainz
+# @version   1.1
 #
 
-import sys
-import logging
+import sys, logging
+
 from logging import FileHandler, Formatter
 
 from folio.connection import Connection
+
 from folio.values.uuid import ItemIDValue
 from folio.values.filename import FileName
-from folio.exceptions import ArgumentException, ItemIDException, HTTPException, ConnectionException, NotFoundException
 
-try:
-    if len(sys.argv) < 2: raise ArgumentException("Das Script benötigt eine ItemID als Argument!")
+from folio.exceptions import ArgumentException, \
+                             ItemIDException, \
+                             HTTPException, \
+                             ConnectionException, \
+                             NotFoundException
 
-    if len(sys.argv) >= 3 and FileName()(sys.argv[2]) :
-        logFileName = sys.argv[2]
-    else:
-        logFileName = "remove.log"
-
-    logger = logging.Logger("RemoveItem")
-    logger.setLevel(logging.INFO)
-
-    handler = FileHandler(logFileName)
-    handler.setLevel(logging.INFO)
-    handler.setFormatter(Formatter("{asctime} {levelname}: {message}", "%Y-%m-%d %H:%M:%S", style="{"))
-
-    logger.addHandler(handler)
+def main():
 
     try:
-        id = ItemIDValue()(sys.argv[1])
+        if len(sys.argv) < 2: raise ArgumentException("Das Script benötigt eine ItemID als Argument!")
 
-        connection = Connection("connection.ini")
+        if len(sys.argv) >= 3 and FileName()(sys.argv[2]) :
+            logFileName = sys.argv[2]
+        else:
+            logFileName = "remove.log"
 
-        if connection.is_established():
-            if connection.deleteItem(id):
-                logEntry = "Das Item mit der ID %s wurde gelöscht!" % (id)
-                logger.info(logEntry)
-                print(logEntry)
+        logger = logging.Logger("RemoveItem")
+        logger.setLevel(logging.INFO)
 
-    except ItemIDException as error:
-        logEntry = "ItemIDException: " + str(error)
-        logger.error(logEntry)
-        print(logEntry)
+        handler = FileHandler(logFileName)
+        handler.setLevel(logging.INFO)
+        handler.setFormatter(Formatter("{asctime} {levelname}: {message}", "%Y-%m-%d %H:%M:%S", style="{"))
 
-    except NotFoundException as error:
-        logEntry = "NotFoundException: " + str(error)
-        logger.error(logEntry)
-        print(logEntry)
+        logger.addHandler(handler)
 
-    except HTTPException as error:
-        logEntry = "HTTPException: " + str(error)
-        logger.error(logEntry)
-        print(logEntry)
+        try:
+            id = ItemIDValue()(sys.argv[1])
 
-    except ConnectionException as error:
-        logEntry = "ConnectionException: " + str(error)
-        logger.error(logEntry)
-        print(logEntry)
+            FOLIO = Connection("connection.ini")
 
-    except BaseException as error:
-        logEntry = "Something unexpected went wrong! " + str(error)
-        logger.error(logEntry)
-        print(logEntry)
+            if FOLIO.is_established():
+
+                request = FOLIO.getOpenRequestByItemId(id)
+
+                if request is None:
+
+                    item = FOLIO.getItemByID(id)
+
+                    if item.status_name == "Available":
+
+                        if item.barcode == "":
+
+                            if FOLIO.deleteItem(id):
+                                logEntry = f"Das Item mit der ID {id} wurde gelöscht!"
+                                logger.info(logEntry)
+                                print(logEntry)
+
+                        else:
+                            logEntry = f"Das Item mit der ID {id} kann nicht gelöscht werden. Es wurde bereits ein Barcode vergeben: {item.barcode}."
+                            logger.info(logEntry)
+                            print(logEntry)
+
+                    else:
+                        logEntry = f"Das Item mit der ID {id} konnte nicht gelöscht werden. Item Status: {item.status_name}."
+                        logger.info(logEntry)
+                        print(logEntry)
+
+                else:
+                    logEntry = f"Das Item mit der ID {id} konnte nicht gelöscht werden. Es liegt eine offene Bestandsanfrage vor."
+                    logger.info(logEntry)
+                    print(logEntry)
+
+        except ItemIDException as error:
+            logEntry = f"ItemIDException: {error}"
+            logger.error(logEntry)
+            print(logEntry)
+
+        except NotFoundException as error:
+            logEntry = f"NotFoundException: {error}"
+            logger.error(logEntry)
+            print(logEntry)
+
+        except HTTPException as error:
+            logEntry = f"HTTPException: {error}"
+            logger.error(logEntry)
+            print(logEntry)
+
+        except ConnectionException as error:
+            logEntry = f"ConnectionException: {error}"
+            logger.error(logEntry)
+            print(logEntry)
+
+        except BaseException as error:
+            logEntry = f"Something unexpected went wrong! {error}"
+            logger.error(logEntry)
+            print(logEntry)
+
+        finally:
+            pass
+
+    except ArgumentException as error:
+        print(f"ArgumentException: {error}")
 
     finally:
         pass
 
-except ArgumentException as error:
-    print("ArgumentException: " + str(error))
-
-finally:
-    pass
+if __name__ == "__main__":
+    main()
