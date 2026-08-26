@@ -1,18 +1,24 @@
 #
 # @author    Matthias Genzmehr
 # @copyright 2024 Universitätsbibliothek Mainz
-# @version   1.0
+# @version   1.1
 #
 
 import requests, configparser, json
 
 from folio.entities.user import User
 from folio.entities.item import Item
+from folio.entities.request import Request
 from folio.entities.newitem import NewItem
 from folio.entities.newrequest import NewRequest
 from folio.entities.allowedservicepoints import AllowedServicePoints
 from folio.entities.folioerror import FOLIOError
-from folio.exceptions import NotFoundException, HTTPException, FOLIOErrorException, ConnectionException, ServicePointException
+
+from folio.exceptions import NotFoundException, \
+                             HTTPException, \
+                             FOLIOErrorException, \
+                             ConnectionException, \
+                             ServicePointException
 
 class Connection:
 
@@ -277,6 +283,32 @@ class Connection:
         elif self.__last_request_status_code == 404:
             raise NotFoundException("Holding", str(item.holdingsRecordId))
         
+        else:
+            raise HTTPException(self.__last_request_status_code)
+
+    #
+    #
+    #
+
+    def getOpenRequestByItemId(self, itemId):
+        """ required access rights:  
+                ("Circulation storage - get request collection")
+        """
+
+        response = self.get('request-storage/requests?query=(itemId="' + str(itemId) + '")')
+
+        request_status = ["Closed - Filled", "Closed - Cancelled", "Closed - Unfilled", "Closed - Pickup expired"]
+
+        if self.__last_request_status_code == 200:
+            data = json.loads(response.text)
+            if "requests" in data and len(data['requests']) > 0:
+                if data['requests'][0]['status'] not in request_status:
+                    return Request(data['requests'][0])
+                else:
+                    return None
+            else:
+                return None
+
         else:
             raise HTTPException(self.__last_request_status_code)
 
